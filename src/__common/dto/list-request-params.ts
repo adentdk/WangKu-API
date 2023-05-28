@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ListRequestParamsDto {
-  @ApiProperty()
+  @ApiProperty({ required: false })
   page?: number;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   pageSize?: number;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   search?: string;
 }

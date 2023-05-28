@@ -6,13 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { BaseUserDto } from './dto/base-user';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user';
+import { UpdateUserDto } from './dto/update-user';
 import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
-import { CreateUserResponse, ListUserResponse } from './users.decorators';
+import {
+  CreateUserDecorator,
+  DetailUserDecorator,
+  ListUserDecorator,
+} from './users.decorators';
+import { ListUserParamsDto } from './dto/list-user';
 
 @ApiTags('users')
 @Controller('users')
@@ -21,20 +27,21 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @CreateUserResponse()
+  @CreateUserDecorator()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
-  @ListUserResponse()
-  findAll() {
-    return this.usersService.findAll();
+  @ListUserDecorator()
+  findAll(@Query() listParams: ListUserParamsDto) {
+    return this.usersService.findAll(listParams);
   }
 
   @Get(':id')
+  @DetailUserDecorator()
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')

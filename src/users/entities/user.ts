@@ -1,17 +1,9 @@
-import {
-  Column,
-  DataType,
-  HasOne,
-  IsUUID,
-  Model,
-  PrimaryKey,
-  Table,
-} from 'sequelize-typescript';
+import { Column, DataType, HasOne, Table } from 'sequelize-typescript';
 import { Profile } from './profile';
 import { BcryptFunction } from 'src/__common/helpers/hash';
-import { UUIDV4 } from 'sequelize';
 import { BaseUserDto } from '../dto/base-user';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from '../dto/create-user';
+import { BaseModel } from 'src/__common/dto/base-model';
 
 @Table({
   name: {
@@ -20,15 +12,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
   },
   paranoid: true,
 })
-export class User extends Model<BaseUserDto, CreateUserDto> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column({
-    type: DataType.STRING(36),
-    defaultValue: UUIDV4,
-  })
-  id: string;
-
+export class User extends BaseModel<BaseUserDto, CreateUserDto> {
   @Column({
     type: DataType.STRING(64),
     unique: true,

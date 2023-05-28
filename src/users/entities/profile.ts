@@ -3,13 +3,13 @@ import {
   Column,
   DataType,
   ForeignKey,
-  IsUUID,
-  Model,
-  PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { Gender } from 'src/__common/types';
+import { Gender } from 'src/__common/types/profile';
 import { User } from './user';
+import { BaseProfileDto } from '../dto/base-profile';
+import { CreateProfileDto } from '../dto/create-profile';
+import { BaseModel } from 'src/__common/dto/base-model';
 
 @Table({
   name: {
@@ -18,12 +18,7 @@ import { User } from './user';
   },
   paranoid: true,
 })
-export class Profile extends Model {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column(DataType.STRING(36))
-  id: string;
-
+export class Profile extends BaseModel<BaseProfileDto, CreateProfileDto> {
   @Column({
     type: DataType.STRING(120),
     allowNull: false,

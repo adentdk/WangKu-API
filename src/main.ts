@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import {
-  HttpStatus,
   UnprocessableEntityException,
   ValidationPipe,
   VersioningType,
@@ -10,6 +9,8 @@ import {
 import { ValidationError } from 'class-validator';
 import { ValidationErrorDto } from './__common/dto/validation-error';
 import { PaginatedDto } from './__common/dto/paginated';
+import { HttpExceptionFilter } from './__common/filters/http-exception';
+import { BaseErrorDto } from './__common/dto/base-error';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,10 +20,8 @@ async function bootstrap() {
       transform: true,
       exceptionFactory: (errors: ValidationError[]) => {
         const errorResponse = {
-          statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
           message: 'Validation Error',
-          error: 'Unprocessable Entity',
-          errors: errors.map((error) => ({
+          fields: errors.map((error) => ({
             field: error.property,
             constraints: error.constraints,
           })),
@@ -31,6 +30,8 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   app.setGlobalPrefix('api');
 
@@ -50,7 +51,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {
-    extraModels: [ValidationErrorDto, PaginatedDto],
+    extraModels: [BaseErrorDto, ValidationErrorDto, PaginatedDto],
   });
 
   SwaggerModule.setup('docs', app, document);
