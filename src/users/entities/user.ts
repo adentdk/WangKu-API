@@ -1,4 +1,4 @@
-import { Column, DataType, HasOne, Table } from 'sequelize-typescript';
+import { Association, Column, DataType, HasOne, Table } from 'sequelize-typescript';
 import { Profile } from './profile';
 import { BcryptFunction } from 'src/__common/helpers/hash';
 import { BaseUserDto } from '../dto/base-user';

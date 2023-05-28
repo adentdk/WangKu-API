@@ -1,12 +1,10 @@
 import {
   Controller,
-  Get,
-  Post,
   Body,
-  Patch,
   Param,
-  Delete,
   Query,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { BaseUserDto } from './dto/base-user';
@@ -14,11 +12,14 @@ import { CreateUserDto } from './dto/create-user';
 import { UpdateUserDto } from './dto/update-user';
 import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import {
-  CreateUserDecorator,
-  DetailUserDecorator,
-  ListUserDecorator,
+  CreateUserDecorators,
+  RemoveUserDecorators,
+  DetailUserDecorators,
+  ListUserDecorators,
+  UpdateUserDecorators,
 } from './users.decorators';
 import { ListUserParamsDto } from './dto/list-user';
+import { Response } from 'express';
 
 @ApiTags('users')
 @Controller('users')
@@ -26,31 +27,28 @@ import { ListUserParamsDto } from './dto/list-user';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  @CreateUserDecorator()
+  @CreateUserDecorators()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
-  @ListUserDecorator()
+  @ListUserDecorators()
   findAll(@Query() listParams: ListUserParamsDto) {
     return this.usersService.findAll(listParams);
   }
 
-  @Get(':id')
-  @DetailUserDecorator()
+  @DetailUserDecorators()
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
-  @Patch(':id')
+  @UpdateUserDecorators()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+    return this.usersService.update(id, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @RemoveUserDecorators()
+  remove(@Param('id') id: string, @Res() res: Response) {
+    return this.usersService.remove(id, res);
   }
 }
