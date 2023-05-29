@@ -1,15 +1,16 @@
-import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Sequelize } from 'sequelize-typescript';
+import { Injectable } from '@nestjs/common';
+import { PaginatedDto } from 'src/__common/dto/paginated';
+import { BooleanType } from 'src/__common/types/utils';
+import { UserNotFound } from 'src/__common/exceptions/user-not-found';
+import { UsernameOrPasswordInValid } from 'src/__common/exceptions/username-or-password-invalid';
+import { Profile } from './entities/profile';
+import { User } from './entities/user';
 import { CreateUserDto } from './dto/create-user';
 import { UpdateUserDto } from './dto/update-user';
-import { InjectModel } from '@nestjs/sequelize';
-import { User } from './entities/user';
 import { ListUserParamsDto } from './dto/list-user';
-import { PaginatedDto } from 'src/__common/dto/paginated';
 import { BaseUserDto } from './dto/base-user';
-import { Profile } from './entities/profile';
-import { BooleanType } from 'src/__common/types/utils';
-import { Sequelize } from 'sequelize-typescript';
-import { Response } from 'express';
 
 @Injectable()
 export class UsersService {
@@ -50,7 +51,7 @@ export class UsersService {
       include: [this.profileModel],
     });
 
-    if (user === null) throw new BadRequestException('user not found');
+    if (user === null) throw new UserNotFound();
 
     return user.toJSON();
   }
@@ -67,7 +68,7 @@ export class UsersService {
           include: [this.profileModel],
         });
 
-        if (user === null) throw new BadRequestException('user not found');
+        if (user === null) throw new UserNotFound();
         const profile = user.profile;
 
         await Promise.all([
@@ -82,15 +83,28 @@ export class UsersService {
     }
   }
 
-  async remove(id: string, res: Response) {
+  async remove(id: string) {
     const user = await this.userModel.findByPk(id, {
       include: [this.profileModel],
     });
 
-    if (user === null) throw new BadRequestException('user not found');
+    if (user === null) throw new UserNotFound();
 
     await user.destroy();
 
-    return res.status(HttpStatus.NO_CONTENT).end();
+    return;
+  }
+
+  // Auth
+  async checkUsernamePassword(username: string, password: string) {
+    const user = await this.userModel.findByCredential(username);
+
+    if (!user) throw new UsernameOrPasswordInValid();
+
+    const isPasswordValid = await user.checkPassword(password);
+
+    if (!isPasswordValid) throw new UsernameOrPasswordInValid();
+
+    return user;
   }
 }

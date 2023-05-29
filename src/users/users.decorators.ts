@@ -1,4 +1,12 @@
-import { Delete, Get, Patch, Post, applyDecorators } from '@nestjs/common';
+import {
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Patch,
+  Post,
+  applyDecorators,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -54,6 +62,7 @@ export const UpdateUserDecorators = () => {
 
 export const RemoveUserDecorators = () => {
   return applyDecorators(
+    HttpCode(HttpStatus.NO_CONTENT),
     Delete(':id'),
     ApiNoContentResponse({ description: 'success' }),
     ApiValidationResponse(),

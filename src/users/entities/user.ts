@@ -4,6 +4,7 @@ import { BcryptFunction } from 'src/__common/helpers/hash';
 import { BaseUserDto } from '../dto/base-user';
 import { CreateUserDto } from '../dto/create-user';
 import { BaseModel } from 'src/__common/dto/base-model';
+import { Op } from 'sequelize';
 
 @Table({
   name: {
@@ -50,4 +51,26 @@ export class User extends BaseModel<BaseUserDto, CreateUserDto> {
 
   @HasOne(() => Profile)
   profile: Profile;
+
+  async checkPassword(plainPassword: string) {
+    return BcryptFunction.verifyPassword(plainPassword, this.password);
+  }
+
+  static findByCredential(credential: string) {
+    return this.findOne({
+      where: {
+        [Op.or]: [
+          {
+            username: credential,
+          },
+          {
+            email: credential,
+          },
+          {
+            phoneNumber: credential,
+          },
+        ],
+      },
+    });
+  }
 }

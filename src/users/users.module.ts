@@ -9,6 +9,6 @@ import { Profile } from './entities/profile';
   imports: [SequelizeModule.forFeature([User, Profile])],
   controllers: [UsersController],
   providers: [UsersService],
-  exports: [SequelizeModule],
+  exports: [UsersService],
 })
 export class UsersModule {}

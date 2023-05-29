@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Body,
-  Param,
-  Query,
-  Res,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Body, Param, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { BaseUserDto } from './dto/base-user';
 import { CreateUserDto } from './dto/create-user';
@@ -19,7 +12,6 @@ import {
   UpdateUserDecorators,
 } from './users.decorators';
 import { ListUserParamsDto } from './dto/list-user';
-import { Response } from 'express';
 
 @ApiTags('users')
 @Controller('users')
@@ -48,7 +40,7 @@ export class UsersController {
   }
 
   @RemoveUserDecorators()
-  remove(@Param('id') id: string, @Res() res: Response) {
-    return this.usersService.remove(id, res);
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
   }
 }
