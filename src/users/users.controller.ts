@@ -10,7 +10,7 @@ import {
   DetailUserDecorators,
   ListUserDecorators,
   UpdateUserDecorators,
-} from './users.decorators';
+} from './decorators/response';
 import { ListUserParamsDto } from './dto/list-user';
 
 @ApiTags('users')

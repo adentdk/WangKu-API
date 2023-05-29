@@ -15,9 +15,9 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { ApiValidationResponse } from 'src/__common/decorators/swagger';
-import { BaseUserDto } from './dto/base-user';
 import { ApiPaginatedResponse } from 'src/__common/decorators/swagger';
 import { BaseErrorDto } from 'src/__common/dto/base-error';
+import { BaseUserDto } from '../dto/base-user';
 
 export const CreateUserDecorators = () => {
   return applyDecorators(

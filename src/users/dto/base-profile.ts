@@ -30,4 +30,7 @@ export class BaseProfileDto extends BaseEntityDto {
   @ApiProperty({ required: false })
   @IsString()
   profilePictureUrl?: string;
+
+  @IsString()
+  userId: string;
 }

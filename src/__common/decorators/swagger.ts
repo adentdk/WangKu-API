@@ -1,5 +1,9 @@
 import { HttpStatus, Type, applyDecorators } from '@nestjs/common';
-import { ApiOkResponse, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import {
+  ApiOkResponse,
+  ApiUnprocessableEntityResponse,
+  getSchemaPath,
+} from '@nestjs/swagger';
 import { PaginatedDto } from '../dto/paginated';
 import { ValidationErrorDto } from '../dto/validation-error';
 
@@ -27,8 +31,7 @@ export const ApiPaginatedResponse = <TModel extends Type<any>>(
 
 export const ApiValidationResponse = () => {
   return applyDecorators(
-    ApiResponse({
-      status: HttpStatus.UNPROCESSABLE_ENTITY,
+    ApiUnprocessableEntityResponse({
       description: 'validation error',
       schema: { $ref: getSchemaPath(ValidationErrorDto) },
     }),

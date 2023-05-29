@@ -4,13 +4,13 @@ import { Injectable } from '@nestjs/common';
 import { PaginatedDto } from 'src/__common/dto/paginated';
 import { BooleanType } from 'src/__common/types/utils';
 import { UserNotFound } from 'src/__common/exceptions/user-not-found';
-import { UsernameOrPasswordInValid } from 'src/__common/exceptions/username-or-password-invalid';
 import { Profile } from './entities/profile';
 import { User } from './entities/user';
 import { CreateUserDto } from './dto/create-user';
 import { UpdateUserDto } from './dto/update-user';
 import { ListUserParamsDto } from './dto/list-user';
 import { BaseUserDto } from './dto/base-user';
+import { BaseProfileDto } from './dto/base-profile';
 
 @Injectable()
 export class UsersService {
@@ -32,7 +32,6 @@ export class UsersService {
     withProfile,
   }: ListUserParamsDto): Promise<PaginatedDto<BaseUserDto>> {
     const include = [];
-    console.log(withProfile, typeof withProfile);
     if (withProfile === BooleanType.True) {
       include.push(this.profileModel);
     }
@@ -95,16 +94,26 @@ export class UsersService {
     return;
   }
 
-  // Auth
-  async checkUsernamePassword(username: string, password: string) {
+  async findProfile(userId: string): Promise<BaseProfileDto> {
+    const profile = await this.profileModel.findByUserId({ userId });
+
+    if (profile === null) throw new UserNotFound();
+
+    return profile.toJSON();
+  }
+
+  async checkUsernamePassword(
+    username: string,
+    password: string,
+  ): Promise<BaseUserDto | null> {
     const user = await this.userModel.findByCredential(username);
 
-    if (!user) throw new UsernameOrPasswordInValid();
+    if (!user) return null;
 
     const isPasswordValid = await user.checkPassword(password);
 
-    if (!isPasswordValid) throw new UsernameOrPasswordInValid();
+    if (!isPasswordValid) return null;
 
-    return user;
+    return user.toJSON();
   }
 }

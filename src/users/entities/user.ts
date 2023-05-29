@@ -49,7 +49,7 @@ export class User extends BaseModel<BaseUserDto, CreateUserDto> {
   })
   password: string;
 
-  @HasOne(() => Profile)
+  @HasOne(() => Profile, 'userId')
   profile: Profile;
 
   async checkPassword(plainPassword: string) {

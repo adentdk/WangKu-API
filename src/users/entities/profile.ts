@@ -10,6 +10,12 @@ import { User } from './user';
 import { BaseProfileDto } from '../dto/base-profile';
 import { CreateProfileDto } from '../dto/create-profile';
 import { BaseModel } from 'src/__common/dto/base-model';
+import { Attributes, FindOptions } from 'sequelize';
+
+interface FindByUserIdParams {
+  userId: string;
+  options?: FindOptions<Attributes<Profile>>;
+}
 
 @Table({
   name: {
@@ -61,4 +67,11 @@ export class Profile extends BaseModel<BaseProfileDto, CreateProfileDto> {
     foreignKey: 'userId',
   })
   user: User;
+
+  static findByUserId({
+    userId,
+    options: { where, ...options } = {},
+  }: FindByUserIdParams) {
+    return this.findOne({ where: { userId, ...where }, ...options });
+  }
 }
