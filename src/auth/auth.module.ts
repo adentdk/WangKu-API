@@ -7,9 +7,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtService } from './services/jwt';
 import { JwtStrategy } from './stategy/jwt.strategy';
 import { LocalStrategy } from './stategy/local.stategy';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { Role } from './entities/role';
 
 @Module({
   imports: [
+    SequelizeModule.forFeature([Role]),
     ConfigModule,
     UsersModule,
     JwtModule.registerAsync({

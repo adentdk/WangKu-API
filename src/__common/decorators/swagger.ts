@@ -1,4 +1,4 @@
-import { HttpStatus, Type, applyDecorators } from '@nestjs/common';
+import { Type, applyDecorators } from '@nestjs/common';
 import {
   ApiOkResponse,
   ApiUnprocessableEntityResponse,
