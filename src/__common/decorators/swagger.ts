@@ -4,8 +4,8 @@ import {
   ApiUnprocessableEntityResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
-import { PaginatedDto } from '../dto/paginated';
-import { ValidationErrorDto } from '../dto/validation-error';
+import { PaginatedResponseDto } from '../dto/paginated-response.dto';
+import { ApiValidationErrorDto } from '../dto/api-validation-error.dto';
 
 export const ApiPaginatedResponse = <TModel extends Type<any>>(
   model: TModel,
@@ -14,7 +14,7 @@ export const ApiPaginatedResponse = <TModel extends Type<any>>(
     ApiOkResponse({
       schema: {
         allOf: [
-          { $ref: getSchemaPath(PaginatedDto) },
+          { $ref: getSchemaPath(PaginatedResponseDto) },
           {
             properties: {
               results: {
@@ -33,7 +33,7 @@ export const ApiValidationResponse = () => {
   return applyDecorators(
     ApiUnprocessableEntityResponse({
       description: 'validation error',
-      schema: { $ref: getSchemaPath(ValidationErrorDto) },
+      type: ApiValidationErrorDto,
     }),
   );
 };

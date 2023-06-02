@@ -1,15 +1,20 @@
-import { Body, Controller } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
-import { SignInSuccessDto } from './dto/sign-in-success';
-import { AuthService } from './services/auth';
-import { SignInDto } from './dto/sign-in';
-import { AuthProfileDecorators, SignInDecorators } from './decorators/response';
-import { CurrentUser } from './decorators/current-user';
-import { CurrentUserDto } from './dto/current-user';
+import { AuthUser } from 'src/__common/decorators/auth-user';
+import { AuthUserDto } from 'src/__common/dto/auth-user.dto';
+
 import { UsersService } from 'src/users/users.service';
+
+import { TokensDto } from './dto/tokens.dto';
+import { AuthService } from './services/auth.service';
+import {
+  AuthProfileDecorators,
+  SignInDecorators,
+} from './auth.controllers.decorators';
+
 @Controller('auth')
 @ApiTags('auth')
-@ApiExtraModels(SignInSuccessDto)
+@ApiExtraModels(TokensDto)
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -17,12 +22,12 @@ export class AuthController {
   ) {}
 
   @SignInDecorators()
-  async signIn(@CurrentUser() currentUser: CurrentUserDto) {
-    return this.authService.getTokens(currentUser);
+  async signIn(@AuthUser() authUser: AuthUserDto) {
+    return this.authService.getTokens(authUser);
   }
 
   @AuthProfileDecorators()
-  async profile(@CurrentUser() currentUser: CurrentUserDto) {
-    return this.userService.findProfile(currentUser.userId);
+  async profile(@AuthUser() authUser: AuthUserDto) {
+    return this.userService.findProfile(authUser.userId);
   }
 }

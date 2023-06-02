@@ -1,18 +1,15 @@
-import { Module } from '@nestjs/common';
-import { UsersModule } from 'src/users/users.module';
-import { AuthController } from './auth.controller';
-import { AuthService } from './services/auth';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtService } from './services/jwt';
-import { JwtStrategy } from './stategy/jwt.strategy';
-import { LocalStrategy } from './stategy/local.stategy';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { Role } from './entities/role';
+import { Module } from '@nestjs/common';
+import { JwtStrategy } from 'src/__common/stategies/jwt.strategy';
+import { LocalStrategy } from 'src/__common/stategies/local.stategy';
+import { UsersModule } from 'src/users/users.module';
+import { AuthController } from './auth.controller';
+import { AuthService } from './services/auth.service';
+import { JwtService } from './services/jwt.service';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Role]),
     ConfigModule,
     UsersModule,
     JwtModule.registerAsync({

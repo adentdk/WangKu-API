@@ -1,16 +1,16 @@
 import { InjectModel } from '@nestjs/sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { Injectable } from '@nestjs/common';
-import { PaginatedDto } from 'src/__common/dto/paginated';
+import { PaginatedResponseDto } from 'src/__common/dto/paginated-response.dto';
 import { BooleanType } from 'src/__common/types/utils';
 import { UserNotFound } from 'src/__common/exceptions/user-not-found';
-import { Profile } from './entities/profile';
-import { User } from './entities/user';
-import { CreateUserDto } from './dto/create-user';
-import { UpdateUserDto } from './dto/update-user';
-import { ListUserParamsDto } from './dto/list-user';
-import { BaseUserDto } from './dto/base-user';
-import { BaseProfileDto } from './dto/base-profile';
+import { Profile } from './entities/profile.entity';
+import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { ListUserParamsDto } from './dto/list-user.dto';
+import { BaseUserDto } from './dto/base-user.dto';
+import { BaseProfileDto } from './dto/base-profile.dto';
 
 @Injectable()
 export class UsersService {
@@ -30,7 +30,7 @@ export class UsersService {
     page = 1,
     pageSize = 10,
     withProfile,
-  }: ListUserParamsDto): Promise<PaginatedDto<BaseUserDto>> {
+  }: ListUserParamsDto): Promise<PaginatedResponseDto<BaseUserDto>> {
     const include = [];
     if (withProfile === BooleanType.True) {
       include.push(this.profileModel);

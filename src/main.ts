@@ -7,10 +7,9 @@ import {
   VersioningType,
 } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
-import { ValidationErrorDto } from './__common/dto/validation-error';
-import { PaginatedDto } from './__common/dto/paginated';
-import { HttpExceptionFilter } from './__common/filters/http-exception';
-import { BaseErrorDto } from './__common/dto/base-error';
+import { PaginatedResponseDto } from './__common/dto/paginated-response.dto';
+import { HttpExceptionFilter } from './__common/middlewares/http-exception-filters';
+import { BaseErrorResponseDto } from './__common/dto/base-error-response.dto';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -51,7 +50,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {
-    extraModels: [BaseErrorDto, ValidationErrorDto, PaginatedDto],
+    extraModels: [BaseErrorResponseDto, PaginatedResponseDto],
   });
 
   SwaggerModule.setup('docs', app, document);
