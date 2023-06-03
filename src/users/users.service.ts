@@ -8,7 +8,7 @@ import { Profile } from './entities/profile.entity';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ListUserParamsDto } from './dto/list-user.dto';
+import { ListUserParamsDto } from './dto/list-user-params.dto';
 import { BaseUserDto } from './dto/base-user.dto';
 import { BaseProfileDto } from './dto/base-profile.dto';
 

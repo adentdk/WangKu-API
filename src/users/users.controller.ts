@@ -1,9 +1,5 @@
 import { Controller, Body, Param, Query } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { BaseUserDto } from './dto/base-user.dto';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import {
   CreateUserDecorators,
   RemoveUserDecorators,
@@ -11,11 +7,13 @@ import {
   ListUserDecorators,
   UpdateUserDecorators,
 } from './users.controller.decorators';
-import { ListUserParamsDto } from './dto/list-user.dto';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { ListUserParamsDto } from './dto/list-user-params.dto';
 
 @ApiTags('users')
 @Controller('users')
-@ApiExtraModels(BaseUserDto)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

@@ -10,14 +10,9 @@ import {
 } from 'sequelize-typescript';
 import { User } from 'src/users/entities/user.entity';
 import { PaginatedResponseDto } from './dto/paginated-response.dto';
-import { FindOptions, UUIDV4 } from 'sequelize';
+import { UUIDV4 } from 'sequelize';
 import { PaginationHelper } from './helpers/pagination';
-
-type FindAllPaginated = {
-  page: number;
-  pageSize: number;
-  options?: Omit<FindOptions, 'limit' | 'offset'>;
-};
+import { FindAllPaginated } from './types/sequelize';
 
 @Injectable()
 export class BaseModel<
@@ -60,20 +55,9 @@ export class BaseModel<
   })
   deletedBy: User;
 
-  static async findAllPaginated({
-    page,
-    pageSize,
-    options = { where: {} },
-  }: FindAllPaginated): Promise<PaginatedResponseDto> {
-    const { limit, offset } = PaginationHelper.getLimitOffset(page, pageSize);
-    const [users, total] = await Promise.all([
-      this.findAll({ limit, offset, ...options }),
-      this.count({ where: options.where }),
-    ]);
-    return {
-      total,
-      totalPage: PaginationHelper.getTotalPages(total, pageSize),
-      results: users.map((user) => user.toJSON()),
-    };
+  static async findAllPaginated(
+    options: FindAllPaginated,
+  ): Promise<PaginatedResponseDto> {
+    return PaginationHelper.findAllPaginated<BaseModel>(this, options);
   }
 }

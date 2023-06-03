@@ -1,11 +1,13 @@
 import { Type, applyDecorators } from '@nestjs/common';
 import {
+  ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiUnprocessableEntityResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
 import { PaginatedResponseDto } from '../dto/paginated-response.dto';
 import { ApiValidationErrorDto } from '../dto/api-validation-error.dto';
+import { BaseErrorResponseDto } from '../dto/base-error-response.dto';
 
 export const ApiPaginatedResponse = <TModel extends Type<any>>(
   model: TModel,
@@ -34,6 +36,15 @@ export const ApiValidationResponse = () => {
     ApiUnprocessableEntityResponse({
       description: 'validation error',
       type: ApiValidationErrorDto,
+    }),
+  );
+};
+
+export const ApiInternalServerResponse = () => {
+  return applyDecorators(
+    ApiInternalServerErrorResponse({
+      description: 'server error',
+      type: BaseErrorResponseDto,
     }),
   );
 };
