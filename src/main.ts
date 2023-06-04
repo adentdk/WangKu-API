@@ -42,11 +42,8 @@ async function bootstrap() {
     .setTitle('WangKu API')
     .setDescription('WangKu API')
     .setVersion('1.0')
-    .addSecurity('Basic', {
-      type: 'http',
-      scheme: 'basic',
-    })
     .addBearerAuth()
+    .addBasicAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {

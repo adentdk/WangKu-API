@@ -7,6 +7,7 @@ import {
   applyDecorators,
 } from '@nestjs/common';
 import {
+  ApiBasicAuth,
   ApiBearerAuth,
   ApiBody,
   ApiInternalServerErrorResponse,
@@ -14,11 +15,11 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { ApiValidationResponse } from 'src/__common/decorators/swagger';
-import { JwtAuthGuard } from 'src/__common/guards/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/__common/guards/local-auth.guard';
 import { BaseProfileDto } from 'src/users/dto/base-profile.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { TokensDto } from './dto/tokens.dto';
+import { JwtBasicAuthGuard } from 'src/__common/guards/jwt-basic-auth.guard';
 
 export const SignInDecorators = () => {
   return applyDecorators(
@@ -37,13 +38,14 @@ export const SignInDecorators = () => {
 
 export const AuthProfileDecorators = () => {
   return applyDecorators(
+    UseGuards(JwtBasicAuthGuard),
     Get('profile'),
-    UseGuards(JwtAuthGuard),
     ApiOkResponse({
       description: 'success',
       type: BaseProfileDto,
     }),
     ApiBearerAuth(),
+    ApiBasicAuth(),
     ApiUnauthorizedResponse(),
     ApiInternalServerErrorResponse(),
   );

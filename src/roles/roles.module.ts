@@ -12,5 +12,6 @@ import { RoleApiPermission } from './entities/role-api-permission.entity';
   ],
   controllers: [RolesController],
   providers: [RolesService],
+  exports: [RolesService],
 })
 export class RolesModule {}

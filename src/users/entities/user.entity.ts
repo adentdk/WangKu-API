@@ -1,10 +1,18 @@
 import { Op } from 'sequelize';
-import { Column, DataType, HasOne, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  HasOne,
+  Table,
+} from 'sequelize-typescript';
 import { BaseModel } from 'src/__common/base-model';
 import { BcryptFunction } from 'src/__common/helpers/hash';
 import { Profile } from './profile.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { BaseUserDto } from '../dto/base-user.dto';
+import { Role } from 'src/roles/entities/role.entity';
+import { RoleUser } from './role-user.entity';
 
 @Table({
   name: {
@@ -51,6 +59,11 @@ export class User extends BaseModel<BaseUserDto, CreateUserDto> {
 
   @HasOne(() => Profile, 'userId')
   profile: Profile;
+
+  @BelongsToMany(() => Role, {
+    through: { model: () => RoleUser },
+  })
+  roles: [];
 
   async checkPassword(plainPassword: string) {
     return BcryptFunction.verifyPassword(plainPassword, this.password);

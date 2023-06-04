@@ -7,27 +7,27 @@ import {
   Column,
   DataType,
 } from 'sequelize-typescript';
-import { Role } from './role.entity';
-import { ApiPermission } from './api-permission.entity';
+import { User } from './user.entity';
+import { Role } from 'src/roles/entities/role.entity';
 
 @Table({
   name: {
-    singular: 'role_api_permission',
-    plural: 'role_api_permissions',
+    singular: 'role_user',
+    plural: 'role_users',
   },
   timestamps: false,
 })
-export class RoleApiPermission extends Model {
-  @BelongsTo(() => ApiPermission)
-  apiPermission!: ApiPermission;
+export class RoleUser extends Model {
+  @BelongsTo(() => User)
+  user!: User;
 
-  @ForeignKey(() => ApiPermission)
+  @ForeignKey(() => User)
   @PrimaryKey
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.STRING(36),
     allowNull: false,
   })
-  apiPermissionId!: number;
+  userId!: number;
 
   @BelongsTo(() => Role)
   role!: Role;

@@ -1,4 +1,4 @@
-import { Controller, Body, Param, Query } from '@nestjs/common';
+import { Controller, Body, Param, Query, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import {
   CreateUserDecorators,
@@ -11,6 +11,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ListUserParamsDto } from './dto/list-user-params.dto';
+import { AddRoleUserDto } from './dto/add-role-user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -40,5 +41,10 @@ export class UsersController {
   @RemoveUserDecorators()
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
+  }
+
+  @Post(':id/roles')
+  addRoleUser(@Param('id') id: string, @Body() addUserDto: AddRoleUserDto) {
+    return this.usersService.addRoleUser(id, addUserDto);
   }
 }

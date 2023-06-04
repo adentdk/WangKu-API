@@ -6,9 +6,10 @@ import env from './__common/env';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { RolesService } from './roles/roles.service';
 import { RolesModule } from './roles/roles.module';
 import { TranslationsModule } from './translations/translations.module';
+import { JwtAuthStrategy } from './__common/stategies/jwt-auth.strategy';
+import { BasicAuthStrategy } from './__common/stategies/basic-auth.strategy';
 
 @Module({
   imports: [
@@ -29,11 +30,11 @@ import { TranslationsModule } from './translations/translations.module';
       inject: [ConfigService],
     }),
     AuthModule,
-    UsersModule,
     RolesModule,
+    UsersModule,
     TranslationsModule,
   ],
   controllers: [],
-  providers: [AppService, RolesService],
+  providers: [AppService, JwtAuthStrategy, BasicAuthStrategy],
 })
 export class AppModule {}

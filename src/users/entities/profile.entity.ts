@@ -60,7 +60,10 @@ export class Profile extends BaseModel<BaseProfileDto, CreateProfileDto> {
   profilePictureUrl: string | null;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({
+    type: DataType.STRING(36),
+    allowNull: false,
+  })
   userId: string;
 
   @BelongsTo(() => User, {

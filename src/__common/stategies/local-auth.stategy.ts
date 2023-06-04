@@ -6,7 +6,7 @@ import { UsernameOrPasswordInValid } from '../exceptions/username-or-password-in
 import { AuthUserDto } from '../dto/auth-user.dto';
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class LocalAuthStrategy extends PassportStrategy(Strategy) {
   constructor(private userService: UsersService) {
     super();
   }
@@ -21,6 +21,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     return {
       userId: user.id,
       username: user.username,
+      publicUser: false,
     };
   }
 }

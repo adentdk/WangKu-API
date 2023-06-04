@@ -11,11 +11,15 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ListUserParamsDto } from './dto/list-user-params.dto';
 import { BaseUserDto } from './dto/base-user.dto';
 import { BaseProfileDto } from './dto/base-profile.dto';
+import { AddRoleUserDto } from './dto/add-role-user.dto';
+import { RolesService } from 'src/roles/roles.service';
+import { RoleUserExist } from 'src/__common/exceptions/role-user-exist';
 
 @Injectable()
 export class UsersService {
   constructor(
-    private sequelize: Sequelize,
+    private readonly sequelize: Sequelize,
+    private readonly roleService: RolesService,
     @InjectModel(User) private userModel: typeof User,
     @InjectModel(Profile) private profileModel: typeof Profile,
   ) {}
@@ -23,6 +27,7 @@ export class UsersService {
   create(createUserDto: CreateUserDto) {
     return this.userModel.create(createUserDto, {
       include: [this.profileModel],
+      returning: ['id', 'email', 'phoneNumber', 'profile', 'username'],
     });
   }
 
@@ -41,6 +46,9 @@ export class UsersService {
       pageSize,
       options: {
         include,
+        attributes: {
+          exclude: ['password'],
+        },
       },
     });
   }
@@ -48,6 +56,9 @@ export class UsersService {
   async findOne(id: string): Promise<BaseUserDto> {
     const user = await this.userModel.findByPk(id, {
       include: [this.profileModel],
+      attributes: {
+        exclude: ['password'],
+      },
     });
 
     if (user === null) throw new UserNotFound();
@@ -60,11 +71,14 @@ export class UsersService {
     { profile: profileData, ...userData }: UpdateUserDto,
   ) {
     try {
-      this.sequelize.transaction(async (t) => {
+      const user = await this.sequelize.transaction(async (t) => {
         const transactionHost = { transaction: t };
 
         const user = await this.userModel.findByPk(id, {
           include: [this.profileModel],
+          attributes: {
+            exclude: ['password'],
+          },
         });
 
         if (user === null) throw new UserNotFound();
@@ -75,8 +89,10 @@ export class UsersService {
           profile.update(profileData, transactionHost),
         ]);
 
-        return user.toJSON();
+        return user;
       });
+
+      return user.toJSON();
     } catch (error) {
       throw error;
     }
@@ -115,5 +131,22 @@ export class UsersService {
     if (!isPasswordValid) return null;
 
     return user.toJSON();
+  }
+
+  async addRoleUser(userId: string, { roleId }: AddRoleUserDto) {
+    const [user, role] = await Promise.all([
+      this.userModel.findByPk(userId),
+      this.roleService.findOne(roleId),
+    ]);
+
+    if (!user) throw new UserNotFound();
+
+    const addRole = await user.$add('roles', role.id);
+
+    if (!addRole) throw new RoleUserExist();
+
+    const roles = await user.$get('roles');
+
+    return roles;
   }
 }
