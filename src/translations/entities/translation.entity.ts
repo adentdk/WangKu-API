@@ -1,5 +1,6 @@
 import {
   AutoIncrement,
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -59,6 +60,9 @@ export class Translation extends Model<
     allowNull: false,
   })
   languageId: number;
+
+  @BelongsTo(() => Language, 'languageId')
+  language: Language;
 
   static async findAllPaginated(
     options: FindAllPaginated,

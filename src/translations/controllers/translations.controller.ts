@@ -1,10 +1,11 @@
-import { Controller, Body, Query } from '@nestjs/common';
+import { Controller, Body, Query, Param } from '@nestjs/common';
 import { TranslationsService } from '../services/translations.service';
 import { CreateTranslationDto } from '../dto/create-translation.dto';
 import { ApiTags } from '@nestjs/swagger';
 import {
   CreateTranslationDecorators,
   ListTranslationDecorators,
+  TranslateDecorators,
 } from '../decorators/translations.controller.decorators';
 import { ListTranslationParamsDto } from '../dto/list-translation-params.dto';
 
@@ -21,5 +22,13 @@ export class TranslationsController {
   @ListTranslationDecorators()
   findAll(@Query() listTranslationDto: ListTranslationParamsDto) {
     return this.translationsService.findAll(listTranslationDto);
+  }
+
+  @TranslateDecorators()
+  translate(@Param('langCode') langCode: string, @Param('ns') ns: string) {
+    return this.translationsService.translateByLanguageAndNamespace({
+      langCode,
+      ns,
+    });
   }
 }

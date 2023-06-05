@@ -27,3 +27,10 @@ export const ListTranslationDecorators = () => {
     ApiInternalServerResponse(),
   );
 };
+
+export const TranslateDecorators = () => {
+  return applyDecorators(
+    Get('languages/:langCode/namespaces/:ns'),
+    ApiInternalServerResponse(),
+  );
+};

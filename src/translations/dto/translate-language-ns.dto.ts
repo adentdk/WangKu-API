@@ -1,19 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
-export class BaseTranslationDto {
+export class TranslateLanguageNsDto {
   @ApiProperty()
-  id: number;
+  @IsNotEmpty()
+  langCode: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  namespace: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  key: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  value: string;
+  ns: string;
 }

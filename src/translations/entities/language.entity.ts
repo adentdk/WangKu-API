@@ -22,6 +22,7 @@ export class Language extends Model<BaseLanguageDto, CreateLanguageDto> {
   @Column({
     type: DataType.STRING(12),
     allowNull: false,
+    unique: true,
   })
   code: string;
 
