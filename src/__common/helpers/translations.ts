@@ -5,17 +5,9 @@ import {
 
 export const transformTranslation = (data: TranslationBasicListData) =>
   data.reduce<ReturnTranslationTransform>((acc, item) => {
-    const { langCode, namespace, key, value } = item;
+    const { key, value } = item;
 
-    if (!acc[langCode]) {
-      acc[langCode] = {};
-    }
-
-    if (!acc[langCode][namespace]) {
-      acc[langCode][namespace] = {};
-    }
-
-    acc[langCode][namespace][key] = value;
+    acc[key] = value;
 
     return acc;
   }, {});

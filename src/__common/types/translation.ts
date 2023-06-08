@@ -8,9 +8,12 @@ export type TranslationBasicData = {
 export type TranslationBasicListData = TranslationBasicData[];
 
 export type ReturnTranslationTransform = {
-  [key: string]: {
-    [key: string]: {
-      [key: string]: string;
-    };
-  };
+  [key: string]:
+    | string
+    | { [key: string]: string }
+    | {
+        [key: string]: {
+          [key: string]: string;
+        };
+      };
 };
