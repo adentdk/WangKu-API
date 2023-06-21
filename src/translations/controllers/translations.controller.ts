@@ -3,6 +3,7 @@ import { TranslationsService } from '../services/translations.service';
 import { CreateTranslationDto } from '../dto/create-translation.dto';
 import { ApiTags } from '@nestjs/swagger';
 import {
+  AddTranslateDecorators,
   CreateTranslationDecorators,
   ListTranslationDecorators,
   TranslateDecorators,
@@ -30,5 +31,19 @@ export class TranslationsController {
       langCode,
       ns,
     });
+  }
+
+  @AddTranslateDecorators()
+  addTranslate(
+    @Param('langCode') langCode: string,
+    @Param('ns') ns: string,
+    @Body() body: any,
+  ) {
+    console.log({ langCode, ns, data: body });
+    return {
+      langCode,
+      ns,
+      data: body,
+    };
   }
 }

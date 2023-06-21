@@ -10,6 +10,7 @@ import { RolesModule } from './roles/roles.module';
 import { TranslationsModule } from './translations/translations.module';
 import { JwtAuthStrategy } from './__common/stategies/jwt-auth.strategy';
 import { BasicAuthStrategy } from './__common/stategies/basic-auth.strategy';
+import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { BasicAuthStrategy } from './__common/stategies/basic-auth.strategy';
     RolesModule,
     UsersModule,
     TranslationsModule,
+    TransactionsModule,
   ],
   controllers: [],
   providers: [AppService, JwtAuthStrategy, BasicAuthStrategy],

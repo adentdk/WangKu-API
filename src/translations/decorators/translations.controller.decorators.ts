@@ -19,6 +19,18 @@ export const CreateTranslationDecorators = () => {
   );
 };
 
+export const CreateBatchTranslationDecorators = () => {
+  return applyDecorators(
+    Post('/batch'),
+    ApiCreatedResponse({
+      description: 'success',
+      type: BaseTranslationDto,
+    }),
+    ApiValidationResponse(),
+    ApiInternalServerResponse(),
+  );
+};
+
 export const ListTranslationDecorators = () => {
   return applyDecorators(
     Get(),
@@ -31,6 +43,13 @@ export const ListTranslationDecorators = () => {
 export const TranslateDecorators = () => {
   return applyDecorators(
     Get('languages/:langCode/namespaces/:ns'),
+    ApiInternalServerResponse(),
+  );
+};
+
+export const AddTranslateDecorators = () => {
+  return applyDecorators(
+    Post('languages/:langCode/namespaces/:ns'),
     ApiInternalServerResponse(),
   );
 };
