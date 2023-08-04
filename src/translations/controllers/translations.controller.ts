@@ -39,7 +39,6 @@ export class TranslationsController {
     @Param('ns') ns: string,
     @Body() body: any,
   ) {
-    console.log({ langCode, ns, data: body });
     return {
       langCode,
       ns,

@@ -4,16 +4,13 @@ import {
   Column,
   DataType,
   ForeignKey,
-  Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 import { BaseTranslationDto } from '../dto/base-translation.dto';
 import { CreateTranslationDto } from '../dto/create-translation.dto';
 import { Language } from './language.entity';
-import { PaginatedResponseDto } from 'src/__common/dto/paginated-response.dto';
-import { PaginationHelper } from 'src/__common/helpers/pagination';
-import { FindAllPaginated } from 'src/__common/types/sequelize';
+import { BaseModel } from 'src/__common/base-model';
 
 @Table({
   name: {
@@ -24,9 +21,10 @@ import { FindAllPaginated } from 'src/__common/types/sequelize';
   timestamps: false,
   indexes: [{ name: 'translation_namespace_index', fields: ['namespace'] }],
 })
-export class Translation extends Model<
+export class Translation extends BaseModel<
   BaseTranslationDto,
-  CreateTranslationDto
+  CreateTranslationDto,
+  number
 > {
   @PrimaryKey
   @AutoIncrement
@@ -63,10 +61,4 @@ export class Translation extends Model<
 
   @BelongsTo(() => Language, 'languageId')
   language: Language;
-
-  static async findAllPaginated(
-    options: FindAllPaginated,
-  ): Promise<PaginatedResponseDto> {
-    return PaginationHelper.findAllPaginated<Translation>(this, options);
-  }
 }
