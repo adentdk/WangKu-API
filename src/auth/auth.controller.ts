@@ -3,7 +3,7 @@ import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { AuthUser } from 'src/__common/decorators/auth-user';
 import { AuthUserDto } from 'src/__common/dto/auth-user.dto';
 
-import { UsersService } from 'src/users/users.service';
+import { UserService } from 'src/users/services/users.service';
 
 import { TokensDto } from './dto/tokens.dto';
 import { AuthService } from './services/auth.service';
@@ -18,7 +18,7 @@ import {
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UsersService,
+    private readonly userService: UserService,
   ) {}
 
   @SignInDecorators()

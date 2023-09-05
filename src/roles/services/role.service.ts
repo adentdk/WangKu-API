@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { CreateRoleDto } from '../dto/create-role.dto';
+import { UpdateRoleDto } from '../dto/update-role.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { Role } from './entities/role.entity';
+import { Role } from '../entities/role.entity';
 import { RoleNotFound } from 'src/__common/exceptions/role-not-found';
 
 @Injectable()

@@ -4,19 +4,19 @@ import { Injectable } from '@nestjs/common';
 import { PaginatedResponseDto } from 'src/__common/dto/paginated-response.dto';
 import { BooleanType } from 'src/__common/types/utils';
 import { UserNotFound } from 'src/__common/exceptions/user-not-found';
-import { Profile } from './entities/profile.entity';
-import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { ListUserParamsDto } from './dto/list-user-params.dto';
-import { BaseUserDto } from './dto/base-user.dto';
-import { BaseProfileDto } from './dto/base-profile.dto';
-import { AddRoleUserDto } from './dto/add-role-user.dto';
-import { RolesService } from 'src/roles/roles.service';
+import { Profile } from '../entities/profile.entity';
+import { User } from '../entities/user.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { ListUserParamsDto } from '../dto/list-user-params.dto';
+import { BaseUserDto } from '../dto/base-user.dto';
+import { BaseProfileDto } from '../dto/base-profile.dto';
+import { AddRoleUserDto } from '../dto/add-role-user.dto';
+import { RolesService } from 'src/roles/services/role.service';
 import { RoleUserExist } from 'src/__common/exceptions/role-user-exist';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     private readonly sequelize: Sequelize,
     private readonly roleService: RolesService,

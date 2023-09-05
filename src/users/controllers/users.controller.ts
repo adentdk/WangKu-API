@@ -6,45 +6,45 @@ import {
   DetailUserDecorators,
   ListUserDecorators,
   UpdateUserDecorators,
-} from './users.controller.decorators';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { ListUserParamsDto } from './dto/list-user-params.dto';
-import { AddRoleUserDto } from './dto/add-role-user.dto';
+} from '../users.controller.decorators';
+import { UserService } from '../services/users.service';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { ListUserParamsDto } from '../dto/list-user-params.dto';
+import { AddRoleUserDto } from '../dto/add-role-user.dto';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly UserService: UserService) {}
 
   @CreateUserDecorators()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return this.UserService.create(createUserDto);
   }
 
   @ListUserDecorators()
   findAll(@Query() listParams: ListUserParamsDto) {
-    return this.usersService.findAll(listParams);
+    return this.UserService.findAll(listParams);
   }
 
   @DetailUserDecorators()
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+    return this.UserService.findOne(id);
   }
 
   @UpdateUserDecorators()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+    return this.UserService.update(id, updateUserDto);
   }
 
   @RemoveUserDecorators()
   remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+    return this.UserService.remove(id);
   }
 
   @Post(':id/roles')
   addRoleUser(@Param('id') id: string, @Body() addUserDto: AddRoleUserDto) {
-    return this.usersService.addRoleUser(id, addUserDto);
+    return this.UserService.addRoleUser(id, addUserDto);
   }
 }

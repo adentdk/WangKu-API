@@ -7,8 +7,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { BaseModel } from 'src/__common/base-model';
-import { ApiPermission } from './api-permission.entity';
-import { RoleApiPermission } from './role-api-permission.entity';
+import { Permission } from './permission.entity';
+import { RolePermission } from './role-permission.entity';
 import { CreateRoleDto } from '../dto/create-role.dto';
 import { BaseRoleDto } from '../dto/base-role.dto';
 
@@ -42,8 +42,8 @@ export class Role extends BaseModel<BaseRoleDto, CreateRoleDto, number> {
   })
   description: string | null;
 
-  @BelongsToMany(() => ApiPermission, {
-    through: { model: () => RoleApiPermission },
+  @BelongsToMany(() => Permission, {
+    through: { model: () => RolePermission },
   })
-  permissions: ApiPermission[];
+  permissions: Permission[];
 }
