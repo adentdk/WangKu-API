@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { bcryptConstants } from '../constants/bcrypt';
+import { bcryptConstants } from 'shared/constants/bcrypt';
 
 export class BcryptFunction {
   static async hashPassword(password: string) {

@@ -7,10 +7,10 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { BaseModel } from 'shared/base-model';
-import { Permission } from './permission.entity';
-import { RolePermission } from './role-permission.entity';
-import { CreateRoleDto } from '../dto/create-role.dto';
-import { BaseRoleDto } from '../dto/base-role.dto';
+import { Permission } from 'modules/permissions/permissions.entity';
+import { RolePermission } from 'modules/role-permission/role-permission.entity';
+import { CreateRoleDto } from './dto/create-role.dto';
+import { BaseRoleDto } from './dto/base-role.dto';
 
 @Table({
   name: {

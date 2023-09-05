@@ -6,9 +6,9 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Gender } from 'shared/types/profile';
-import { User } from './user.entity';
-import { BaseProfileDto } from '../dto/base-profile.dto';
-import { CreateProfileDto } from '../dto/create-profile.dto';
+import { User } from 'modules/users/user.entity';
+import { BaseProfileDto } from 'modules/users/dto/base-profile.dto';
+import { CreateProfileDto } from 'modules/users/dto/create-profile.dto';
 import { BaseModel } from 'shared/base-model';
 import { Attributes, FindOptions } from 'sequelize';
 

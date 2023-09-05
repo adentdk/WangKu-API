@@ -7,14 +7,14 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { PermissionService } from '../services/permission.service';
+import { PermissionService } from './permissions.service';
 import { ApiTags } from '@nestjs/swagger';
-import { CreatePermissionDto } from '../dto/create-permission.dto';
-import { UpdatePermissionDto } from '../dto/update-permission.dto';
+import { CreatePermissionDto } from './dto/create-permission.dto';
+import { UpdatePermissionDto } from './dto/update-permission.dto';
 
 @ApiTags('permissions')
 @Controller('permissions')
-export class PermissionController {
+export class PermissionsController {
   constructor(private readonly permissionService: PermissionService) {}
 
   @Post()

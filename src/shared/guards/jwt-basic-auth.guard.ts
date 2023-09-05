@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import * as passport from 'passport';
-import { AuthUserDto } from '../dto/auth-user.dto';
+import { AuthUserDto } from 'shared/dto/auth-user.dto';
 
 @Injectable()
 export class JwtBasicAuthGuard implements CanActivate {

@@ -7,8 +7,8 @@ import {
   Column,
   DataType,
 } from 'sequelize-typescript';
-import { Role } from './role.entity';
-import { Permission } from './permission.entity';
+import { Role } from 'modules/roles/roles.entity';
+import { Permission } from 'modules/permissions/permissions.entity';
 
 @Table({
   name: {

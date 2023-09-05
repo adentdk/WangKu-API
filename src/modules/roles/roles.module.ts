@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
-import { RolesService } from './services/role.service';
-import { RoleController } from './controllers/role.controller';
+import { RolesService } from './roles.service';
+import { RolesController } from './roles.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Role } from './entities/role.entity';
-import { Permission } from './entities/permission.entity';
-import { RolePermission } from './entities/role-permission.entity';
-import { PermissionController } from './controllers/permission.controller';
-import { PermissionService } from './services/permission.service';
+import { Role } from './roles.entity';
+import { PermissionsModule } from 'modules/permissions/permissions.module';
+import { RolePermissionModule } from 'modules/role-permission/role-permission.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Role, Permission, RolePermission])],
-  controllers: [RoleController, PermissionController],
-  providers: [RolesService, PermissionService],
-  exports: [RolesService, PermissionService],
+  imports: [
+    SequelizeModule.forFeature([Role]),
+    PermissionsModule,
+    RolePermissionModule,
+  ],
+  controllers: [RolesController],
+  providers: [RolesService],
+  exports: [RolesService],
 })
 export class RolesModule {}

@@ -11,6 +11,10 @@ import { AuthModule } from './modules/auth/auth.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { TranslationsModule } from './modules/translations/translations.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
+import { PermissionsModule } from 'modules/permissions/permissions.module';
+import { RolePermissionModule } from 'modules/role-permission/role-permission.module';
+import { ProfilesModule } from 'modules/profiles/profiles.module';
+import { RoleUserModule } from 'modules/role-user/role-user.module';
 
 @Module({
   imports: [
@@ -31,8 +35,12 @@ import { TransactionsModule } from './modules/transactions/transactions.module';
       inject: [ConfigService],
     }),
     AuthModule,
+    PermissionsModule,
+    RolePermissionModule,
     RolesModule,
     UsersModule,
+    ProfilesModule,
+    RoleUserModule,
     TranslationsModule,
     TransactionsModule,
   ],

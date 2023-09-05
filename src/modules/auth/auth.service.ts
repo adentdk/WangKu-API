@@ -25,6 +25,7 @@ export class AuthService {
   }
 
   async signAccessToken(payload: string | object | Buffer) {
+    console.log(this.config.get<string>('jwt.accessExpired'));
     return await this.jwtService.signAsync(payload, {
       secret: this.config.get<string>('jwt.accessSecret'),
       expiresIn: this.config.get<string>('jwt.accessExpired'),

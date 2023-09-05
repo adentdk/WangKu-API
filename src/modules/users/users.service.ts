@@ -4,15 +4,15 @@ import { Injectable } from '@nestjs/common';
 import { PaginatedResponseDto } from 'shared/dto/paginated-response.dto';
 import { BooleanType } from 'shared/types/utils';
 import { UserNotFound } from 'shared/exceptions/user-not-found';
-import { Profile } from '../entities/profile.entity';
-import { User } from '../entities/user.entity';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { ListUserParamsDto } from '../dto/list-user-params.dto';
-import { BaseUserDto } from '../dto/base-user.dto';
-import { BaseProfileDto } from '../dto/base-profile.dto';
-import { AddRoleUserDto } from '../dto/add-role-user.dto';
-import { RolesService } from 'modules/roles/services/role.service';
+import { Profile } from 'modules/profiles/profiles.entity';
+import { User } from './user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { ListUserParamsDto } from './dto/list-user-params.dto';
+import { BaseUserDto } from './dto/base-user.dto';
+import { BaseProfileDto } from './dto/base-profile.dto';
+import { AddRoleUserDto } from './dto/add-role-user.dto';
+import { RolesService } from 'modules/roles/roles.service';
 import { RoleUserExist } from 'shared/exceptions/role-user-exist';
 
 @Injectable()

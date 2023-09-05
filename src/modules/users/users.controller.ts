@@ -6,12 +6,12 @@ import {
   DetailUserDecorators,
   ListUserDecorators,
   UpdateUserDecorators,
-} from '../users.controller.decorators';
-import { UserService } from '../services/users.service';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { ListUserParamsDto } from '../dto/list-user-params.dto';
-import { AddRoleUserDto } from '../dto/add-role-user.dto';
+} from './users.controller.decorators';
+import { UserService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { ListUserParamsDto } from './dto/list-user-params.dto';
+import { AddRoleUserDto } from './dto/add-role-user.dto';
 
 @ApiTags('users')
 @Controller('users')

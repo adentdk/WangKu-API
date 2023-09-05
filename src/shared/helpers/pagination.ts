@@ -1,4 +1,4 @@
-import { FindAllPaginated } from '../types/sequelize';
+import { FindAllPaginated } from 'shared/types/sequelize';
 import { Model, ModelStatic } from 'sequelize';
 
 export class PaginationHelper {

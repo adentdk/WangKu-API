@@ -1,7 +1,7 @@
 import {
   ReturnTranslationTransform,
   TranslationBasicListData,
-} from '../types/translation';
+} from 'shared/types/translation';
 
 export const transformTranslation = (data: TranslationBasicListData) =>
   data.reduce<ReturnTranslationTransform>((acc, item) => {

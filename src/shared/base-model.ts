@@ -8,7 +8,7 @@ import {
   PrimaryKey,
   Model,
 } from 'sequelize-typescript';
-import { User } from 'modules/users/entities/user.entity';
+import { User } from 'modules/users/user.entity';
 import { PaginatedResponseDto } from './dto/paginated-response.dto';
 import { UUIDV4 } from 'sequelize';
 import { PaginationHelper } from './helpers/pagination';

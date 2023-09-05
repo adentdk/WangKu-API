@@ -5,9 +5,9 @@ import {
   ApiUnprocessableEntityResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
-import { PaginatedResponseDto } from '../dto/paginated-response.dto';
-import { ApiValidationErrorDto } from '../dto/api-validation-error.dto';
-import { BaseErrorResponseDto } from '../dto/base-error-response.dto';
+import { PaginatedResponseDto } from 'shared/dto/paginated-response.dto';
+import { ApiValidationErrorDto } from 'shared/dto/api-validation-error.dto';
+import { BaseErrorResponseDto } from 'shared/dto/base-error-response.dto';
 
 export const ApiPaginatedResponse = <TModel extends Type<any>>(
   model: TModel,
