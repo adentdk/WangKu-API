@@ -7,9 +7,9 @@ import {
   VersioningType,
 } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
-import { PaginatedResponseDto } from './__common/dto/paginated-response.dto';
-import { HttpExceptionFilter } from './__common/middlewares/http-exception-filters';
-import { BaseErrorResponseDto } from './__common/dto/base-error-response.dto';
+import { PaginatedResponseDto } from './shared/dto/paginated-response.dto';
+import { HttpExceptionFilter } from './shared/middlewares/http-exception-filters';
+import { BaseErrorResponseDto } from './shared/dto/base-error-response.dto';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

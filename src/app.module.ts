@@ -2,15 +2,15 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import env from './__common/env';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { RolesModule } from './roles/roles.module';
-import { TranslationsModule } from './translations/translations.module';
-import { JwtAuthStrategy } from './__common/stategies/jwt-auth.strategy';
-import { BasicAuthStrategy } from './__common/stategies/basic-auth.strategy';
-import { TransactionsModule } from './transactions/transactions.module';
+import env from './shared/env';
+import { JwtAuthStrategy } from './shared/stategies/jwt-auth.strategy';
+import { BasicAuthStrategy } from './shared/stategies/basic-auth.strategy';
+
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { TranslationsModule } from './modules/translations/translations.module';
+import { TransactionsModule } from './modules/transactions/transactions.module';
 
 @Module({
   imports: [
@@ -37,6 +37,6 @@ import { TransactionsModule } from './transactions/transactions.module';
     TransactionsModule,
   ],
   controllers: [],
-  providers: [AppService, JwtAuthStrategy, BasicAuthStrategy],
+  providers: [JwtAuthStrategy, BasicAuthStrategy],
 })
 export class AppModule {}
