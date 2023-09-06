@@ -15,6 +15,7 @@ export class TranslationsService {
     @InjectModel(Translation) private translationModel: typeof Translation,
     @InjectModel(Language) private languageModel: typeof Language,
   ) {}
+
   create(createTranslationDto: CreateTranslationDto) {
     return this.translationModel.create(createTranslationDto);
   }
