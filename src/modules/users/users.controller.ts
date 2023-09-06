@@ -1,50 +1,89 @@
-import { Controller, Body, Param, Query, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import {
-  CreateUserDecorators,
-  RemoveUserDecorators,
-  DetailUserDecorators,
-  ListUserDecorators,
-  UpdateUserDecorators,
-} from './users.controller.decorators';
+  Controller,
+  Body,
+  Param,
+  Query,
+  Post,
+  Get,
+  Patch,
+  Delete,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UserService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ListUserParamsDto } from './dto/list-user-params.dto';
 import { AddRoleUserDto } from './dto/add-role-user.dto';
+import { BaseUserDto } from './dto/base-user.dto';
+import {
+  ApiPaginatedResponse,
+  ApiValidationResponse,
+} from 'shared/decorators/swagger';
+import { BaseErrorResponseDto } from 'shared/dto/base-error-response.dto';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly UserService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
-  @CreateUserDecorators()
+  @Post()
+  @ApiCreatedResponse({
+    description: 'success',
+    type: BaseUserDto,
+  })
+  @ApiValidationResponse()
+  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
   create(@Body() createUserDto: CreateUserDto) {
-    return this.UserService.create(createUserDto);
+    return this.userService.create(createUserDto);
   }
 
-  @ListUserDecorators()
+  @Get()
+  @ApiPaginatedResponse(BaseUserDto)
+  @ApiValidationResponse()
+  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
   findAll(@Query() listParams: ListUserParamsDto) {
-    return this.UserService.findAll(listParams);
+    return this.userService.findAll(listParams);
   }
 
-  @DetailUserDecorators()
+  @Get(':id')
+  @ApiOkResponse({ type: BaseUserDto })
+  @ApiValidationResponse()
+  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
+  @ApiBadRequestResponse({ type: BaseErrorResponseDto })
   findOne(@Param('id') id: string) {
-    return this.UserService.findOne(id);
+    return this.userService.findOne(id);
   }
 
-  @UpdateUserDecorators()
+  @Patch(':id')
+  @ApiOkResponse({ type: BaseUserDto })
+  @ApiValidationResponse()
+  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
+  @ApiBadRequestResponse({ type: BaseErrorResponseDto })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.UserService.update(id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
-  @RemoveUserDecorators()
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse({ description: 'success' })
+  @ApiValidationResponse()
+  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
+  @ApiBadRequestResponse({ type: BaseErrorResponseDto })
   remove(@Param('id') id: string) {
-    return this.UserService.remove(id);
+    return this.userService.remove(id);
   }
 
   @Post(':id/roles')
   addRoleUser(@Param('id') id: string, @Body() addUserDto: AddRoleUserDto) {
-    return this.UserService.addRoleUser(id, addUserDto);
+    return this.userService.addRoleUser(id, addUserDto);
   }
 }

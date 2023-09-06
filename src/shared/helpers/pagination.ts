@@ -19,14 +19,14 @@ export class PaginationHelper {
     model: ModelStatic<M>,
     { page, pageSize, options = { where: {} } }: FindAllPaginated,
   ) {
-    const { limit, offset } = PaginationHelper.getLimitOffset(page, pageSize);
+    const { limit, offset } = this.getLimitOffset(page, pageSize);
     const [results, total] = await Promise.all([
       model.findAll({ limit, offset, ...options }),
       model.count({ where: options.where }),
     ]);
     return {
       total,
-      totalPage: PaginationHelper.getTotalPages(total, pageSize),
+      totalPage: this.getTotalPages(total, pageSize),
       results: results.map((user) => user.toJSON()),
     };
   }
