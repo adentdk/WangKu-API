@@ -23,7 +23,7 @@ import { UserService } from 'modules/users/users.service';
 import { TokensDto } from './dto/tokens.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
-import { BaseProfileDto } from 'modules/users/dto/base-profile.dto';
+import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { LocalAuthGuard } from 'shared/guards/local-auth.guard';
 import { ApiValidationResponse } from 'shared/decorators/swagger';
