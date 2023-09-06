@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTranslationDto } from '../dto/create-translation.dto';
+import { CreateTranslationDto } from './dto/create-translation.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { Translation } from '../entities/translation.entity';
-import { Language } from '../entities/language.entity';
-import { ListTranslationParamsDto } from '../dto/list-translation-params.dto';
-import { TranslateLanguageNsDto } from '../dto/translate-language-ns.dto';
+import { Translation } from './translations.entity';
+import { Language } from '../languages/languages.entity';
+import { ListTranslationParamsDto } from './dto/list-translation-params.dto';
+import { TranslateLanguageNsDto } from './dto/translate-language-ns.dto';
 import { Sequelize } from 'sequelize-typescript';
 import { transformTranslation } from 'shared/helpers/translations';
 

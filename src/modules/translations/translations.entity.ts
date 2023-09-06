@@ -7,9 +7,9 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { BaseTranslationDto } from '../dto/base-translation.dto';
-import { CreateTranslationDto } from '../dto/create-translation.dto';
-import { Language } from './language.entity';
+import { BaseTranslationDto } from './dto/base-translation.dto';
+import { CreateTranslationDto } from './dto/create-translation.dto';
+import { Language } from '../languages/languages.entity';
 import { BaseModel } from 'shared/base-model';
 
 @Table({
