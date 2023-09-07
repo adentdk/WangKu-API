@@ -6,13 +6,15 @@ import {
   HasOne,
   Table,
 } from 'sequelize-typescript';
+
+import { Profile } from 'modules/profiles/profiles.entity';
+import { RoleUser } from 'modules/role-user/role-user.entity';
+import { Role } from 'modules/roles/roles.entity';
 import { BaseModel } from 'shared/base-model';
 import { BcryptFunction } from 'shared/helpers/hash';
-import { Profile } from 'modules/profiles/profiles.entity';
-import { CreateUserDto } from './dto/create-user.dto';
+
 import { BaseUserDto } from './dto/base-user.dto';
-import { Role } from 'modules/roles/roles.entity';
-import { RoleUser } from 'modules/role-user/role-user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Table({
   name: {

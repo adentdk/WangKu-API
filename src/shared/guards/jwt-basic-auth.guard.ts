@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import * as passport from 'passport';
+
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
 
 @Injectable()

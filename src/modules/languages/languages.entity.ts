@@ -1,7 +1,9 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+
+import { Translation } from 'modules/translations/translations.entity';
+
 import { BaseLanguageDto } from './dto/base-language.dto';
 import { CreateLanguageDto } from './dto/create-language.dto';
-import { Translation } from 'modules/translations/translations.entity';
 
 @Table({
   name: {

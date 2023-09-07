@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { PaginationReqQueryDto } from 'shared/dto/pagination-req-query.dto';
 import { BooleanType } from 'shared/types/utils';
 

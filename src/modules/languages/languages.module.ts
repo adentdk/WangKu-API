@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Language } from './languages.entity';
+
 import { LanguagesController } from './languages.controller';
+import { Language } from './languages.entity';
 import { LanguagesService } from './languages.service';
 
 @Module({

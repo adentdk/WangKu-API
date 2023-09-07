@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcrypt';
+
 import { bcryptConstants } from 'shared/constants/bcrypt';
 
 export class BcryptFunction {

@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { UUIDV4 } from 'sequelize';
 import {
   BelongsTo,
   Column,
   DataType,
   ForeignKey,
   IsUUID,
-  PrimaryKey,
   Model,
+  PrimaryKey,
 } from 'sequelize-typescript';
+
 import { User } from 'modules/users/user.entity';
+
 import { PaginatedResponseDto } from './dto/paginated-response.dto';
-import { UUIDV4 } from 'sequelize';
 import { PaginationHelper } from './helpers/pagination';
 import { FindAllPaginated } from './types/sequelize';
 

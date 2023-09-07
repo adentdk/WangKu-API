@@ -1,8 +1,10 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { BaseUserDto } from './base-user.dto';
-import { IsNotEmpty, IsStrongPassword, MinLength } from 'class-validator';
-import { CreateProfileDto } from 'modules/profiles/dto/create-profile.dto';
 import { Type } from 'class-transformer';
+import { IsNotEmpty, IsStrongPassword, MinLength } from 'class-validator';
+
+import { CreateProfileDto } from 'modules/profiles/dto/create-profile.dto';
+
+import { BaseUserDto } from './base-user.dto';
 
 export class CreateUserDto extends PickType(BaseUserDto, [
   'username',

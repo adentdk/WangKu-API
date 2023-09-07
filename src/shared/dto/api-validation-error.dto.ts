@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseErrorResponseDto } from './base-error-response.dto';
 import { Type } from 'class-transformer';
+
+import { BaseErrorResponseDto } from './base-error-response.dto';
 
 class Constraints {
   [k: string]: string;

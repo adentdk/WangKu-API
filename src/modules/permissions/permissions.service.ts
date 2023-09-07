@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Permission } from './permissions.entity';
+
 import { PermissionNotFound } from 'shared/exceptions/permission-not-found';
+
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
+import { Permission } from './permissions.entity';
 
 @Injectable()
 export class PermissionService {
   constructor(
     @InjectModel(Permission) private permissionModel: typeof Permission,
   ) {}
-  create(createRoleDto: CreatePermissionDto) {
+  create(createPermission: CreatePermissionDto) {
     return 'This action adds a new permission';
   }
 
@@ -24,7 +26,7 @@ export class PermissionService {
     return permission.toJSON();
   }
 
-  update(id: number, updateRoleDto: UpdatePermissionDto) {
+  update(id: number, updatePermissionDto: UpdatePermissionDto) {
     return `This action updates a #${id} permission`;
   }
 

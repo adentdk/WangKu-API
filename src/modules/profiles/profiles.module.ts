@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
+
 import { Profile } from './profiles.entity';
 import { ProfilesService } from './profiles.service';
 @Module({

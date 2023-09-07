@@ -1,15 +1,16 @@
-import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module';
 import {
   UnprocessableEntityException,
   ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationError } from 'class-validator';
+
+import { BaseErrorResponseDto } from './shared/dto/base-error-response.dto';
 import { PaginatedResponseDto } from './shared/dto/paginated-response.dto';
 import { HttpExceptionFilter } from './shared/middlewares/http-exception-filters';
-import { BaseErrorResponseDto } from './shared/dto/base-error-response.dto';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

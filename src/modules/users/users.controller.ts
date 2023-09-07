@@ -1,14 +1,14 @@
 import {
-  Controller,
   Body,
-  Param,
-  Query,
-  Post,
-  Get,
-  Patch,
+  Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -18,17 +18,19 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { UserService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { ListUserParamsDto } from './dto/list-user-params.dto';
-import { AddRoleUserDto } from './dto/add-role-user.dto';
-import { BaseUserDto } from './dto/base-user.dto';
+
 import {
   ApiPaginatedResponse,
   ApiValidationResponse,
 } from 'shared/decorators/swagger';
 import { BaseErrorResponseDto } from 'shared/dto/base-error-response.dto';
+
+import { AddRoleUserDto } from './dto/add-role-user.dto';
+import { BaseUserDto } from './dto/base-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { ListUserParamsDto } from './dto/list-user-params.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './users.service';
 
 @ApiTags('users')
 @Controller('users')

@@ -6,6 +6,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+
 import { BaseEntityDto } from 'shared/dto/base-entity.dto';
 import { Gender } from 'shared/types/profile';
 

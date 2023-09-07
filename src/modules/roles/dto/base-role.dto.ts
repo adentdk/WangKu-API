@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, MaxLength } from 'class-validator';
+
 import { BaseEntityDto } from 'shared/dto/base-entity.dto';
 
 export class BaseRoleDto extends BaseEntityDto {

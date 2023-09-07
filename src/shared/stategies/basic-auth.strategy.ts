@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { BasicStrategy } from 'passport-http';
+
 import { UserService } from 'modules/users/users.service';
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
-import { ConfigService } from '@nestjs/config';
 import { InvalidCredentials } from 'shared/exceptions/invalid-credentials';
 
 @Injectable()

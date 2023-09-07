@@ -1,14 +1,16 @@
-import { Controller, Body, Query, Param, Post, Get } from '@nestjs/common';
-import { TranslationsService } from './translations.service';
-import { CreateTranslationDto } from './dto/create-translation.dto';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
-import { ListTranslationParamsDto } from './dto/list-translation-params.dto';
-import { BaseTranslationDto } from './dto/base-translation.dto';
+
 import {
   ApiInternalServerResponse,
   ApiPaginatedResponse,
   ApiValidationResponse,
 } from 'shared/decorators/swagger';
+
+import { BaseTranslationDto } from './dto/base-translation.dto';
+import { CreateTranslationDto } from './dto/create-translation.dto';
+import { ListTranslationParamsDto } from './dto/list-translation-params.dto';
+import { TranslationsService } from './translations.service';
 
 @ApiTags('translations')
 @Controller('translations')

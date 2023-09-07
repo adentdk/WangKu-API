@@ -1,5 +1,6 @@
-import { InjectModel } from '@nestjs/sequelize';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+
 import { Profile } from 'modules/profiles/profiles.entity';
 
 @Injectable()

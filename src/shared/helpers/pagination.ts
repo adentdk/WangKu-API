@@ -1,5 +1,6 @@
-import { FindAllPaginated } from 'shared/types/sequelize';
 import { Model, ModelStatic } from 'sequelize';
+
+import { FindAllPaginated } from 'shared/types/sequelize';
 
 export class PaginationHelper {
   static getLimitOffset(

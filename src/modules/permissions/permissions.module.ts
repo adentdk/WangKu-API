@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Permission } from './permissions.entity';
+
 import { PermissionsController } from './permissions.controller';
+import { Permission } from './permissions.entity';
 import { PermissionService } from './permissions.service';
 
 @Module({

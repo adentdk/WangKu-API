@@ -1,14 +1,15 @@
 import {
-  Table,
-  Model,
-  ForeignKey,
   BelongsTo,
-  PrimaryKey,
   Column,
   DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
 } from 'sequelize-typescript';
-import { Role } from 'modules/roles/roles.entity';
+
 import { Permission } from 'modules/permissions/permissions.entity';
+import { Role } from 'modules/roles/roles.entity';
 
 @Table({
   name: {

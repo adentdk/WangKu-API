@@ -1,3 +1,4 @@
+import { Attributes, FindOptions } from 'sequelize';
 import {
   BelongsTo,
   Column,
@@ -5,12 +6,13 @@ import {
   ForeignKey,
   Table,
 } from 'sequelize-typescript';
-import { Gender } from 'shared/types/profile';
+
 import { User } from 'modules/users/user.entity';
+import { BaseModel } from 'shared/base-model';
+import { Gender } from 'shared/types/profile';
+
 import { BaseProfileDto } from './dto/base-profile.dto';
 import { CreateProfileDto } from './dto/create-profile.dto';
-import { BaseModel } from 'shared/base-model';
-import { Attributes, FindOptions } from 'sequelize';
 
 interface FindByUserIdParams {
   userId: string;
