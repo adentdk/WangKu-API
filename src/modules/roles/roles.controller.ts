@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -13,6 +15,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -32,16 +35,17 @@ import { ListRoleParamsDto } from './dto/list-role-params.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { RolesService } from './roles.service';
 
-@ApiTags('roles')
 @Controller('roles')
+@UseGuards(JwtAuthGuard)
+@ApiTags('roles')
+@ApiValidationResponse()
+@ApiBadRequestResponse({ type: BaseErrorResponseDto })
+@ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   @ApiCreatedResponse({ type: BaseRoleDto })
-  @ApiValidationResponse()
-  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
   create(
     @Body() createRoleDto: CreateRoleDto,
     @AuthUser() authUser: AuthUserDto,
@@ -51,27 +55,25 @@ export class RolesController {
 
   @Get()
   @ApiPaginatedResponse(BaseRoleDto)
-  @ApiValidationResponse()
-  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
   findAll(@Query() queryParams: ListRoleParamsDto) {
     return this.rolesService.findAll(queryParams);
   }
 
   @Get(':id')
   @ApiOkResponse({ type: BaseRoleDto })
-  @ApiValidationResponse()
-  @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
-  @ApiBadRequestResponse({ type: BaseErrorResponseDto })
   findOne(@Param('id') id: string) {
     return this.rolesService.findOne(+id);
   }
 
   @Patch(':id')
+  @ApiOkResponse({ type: BaseRoleDto })
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     return this.rolesService.update(+id, updateRoleDto);
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse()
   remove(@Param('id') id: string) {
     return this.rolesService.remove(+id);
   }

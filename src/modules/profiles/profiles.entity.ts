@@ -90,6 +90,33 @@ export class Profile extends BaseModel<
   })
   user: User;
 
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  createdById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'createdById',
+  })
+  createdBy: User;
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  updatedById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'updatedById',
+  })
+  updatedBy: User;
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  deletedById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'deletedById',
+  })
+  deletedBy: User;
+
   static findByUserId({
     userId,
     options: { where, ...options } = {},

@@ -11,6 +11,8 @@ import {
 
 import { BaseModel } from 'shared/base-model';
 
+import { User } from 'modules/users/user.entity';
+
 import { Language } from '../languages/languages.entity';
 
 @Table({
@@ -61,4 +63,31 @@ export class Translation extends BaseModel<
 
   @BelongsTo(() => Language, 'languageId')
   language: Language;
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  createdById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'createdById',
+  })
+  createdBy: User;
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  updatedById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'updatedById',
+  })
+  updatedBy: User;
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  deletedById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'deletedById',
+  })
+  deletedBy: User;
 }

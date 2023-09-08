@@ -34,8 +34,8 @@ export class UserService {
   }
 
   async findAll({
-    page = 1,
-    pageSize = 10,
+    page,
+    pageSize,
     withProfile,
   }: ListUserParamsDto): Promise<PaginatedResponseDto<BaseUserDto>> {
     const include = [];

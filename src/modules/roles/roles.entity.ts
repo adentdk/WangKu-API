@@ -1,9 +1,11 @@
 import { InferAttributes, InferCreationAttributes } from 'sequelize';
 import {
   AutoIncrement,
+  BelongsTo,
   BelongsToMany,
   Column,
   DataType,
+  ForeignKey,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
@@ -13,6 +15,7 @@ import { ErrorCodes } from 'shared/types/error-code';
 
 import { Permission } from 'modules/permissions/permissions.entity';
 import { RolePermission } from 'modules/role-permission/role-permission.entity';
+import { User } from 'modules/users/user.entity';
 
 @Table({
   name: {
@@ -54,4 +57,31 @@ export class Role extends BaseModel<
     through: { model: () => RolePermission },
   })
   permissions: Permission[];
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  createdById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'createdById',
+  })
+  createdBy: User;
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  updatedById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'updatedById',
+  })
+  updatedBy: User;
+
+  @ForeignKey(() => User)
+  @Column(DataType.STRING(36))
+  deletedById: string;
+
+  @BelongsTo(() => User, {
+    foreignKey: 'deletedById',
+  })
+  deletedBy: User;
 }

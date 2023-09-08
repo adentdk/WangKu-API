@@ -31,11 +31,7 @@ export class RolesService {
 
       if (permissionIds?.length) {
         permissions = await this.permissionModel.findAll({
-          where: {
-            id: {
-              [Op.in]: permissionIds,
-            },
-          },
+          where: { id: { [Op.in]: permissionIds } },
         });
 
         if (permissionIds.length !== permissions.length) throw new BadRequest();
@@ -47,11 +43,12 @@ export class RolesService {
           { ...roleData, createdById: authUserId },
           transactionHost,
         );
-        await role.$set(
-          'permissions',
-          permissions.map((item) => item.id),
-          transactionHost,
-        );
+
+        if (permissionIds.length) {
+          await role.$set('permissions', permissionIds, transactionHost);
+        }
+
+        return role;
       });
 
       return role;
