@@ -2,8 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsPhoneNumber, MaxLength } from 'class-validator';
 
-import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
 import { BaseEntityDto } from 'shared/dto/base-entity.dto';
+
+import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
 
 export class BaseUserDto extends BaseEntityDto {
   @ApiProperty()

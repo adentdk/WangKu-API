@@ -7,9 +7,10 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { User } from 'modules/users/user.entity';
 import { BaseModel } from 'shared/base-model';
 import { Gender } from 'shared/types/profile';
+
+import { User } from 'modules/users/user.entity';
 
 import { BaseProfileDto } from './dto/base-profile.dto';
 import { CreateProfileDto } from './dto/create-profile.dto';
@@ -18,6 +19,8 @@ interface FindByUserIdParams {
   userId: string;
   options?: FindOptions<Attributes<Profile>>;
 }
+
+console.log(BaseModel);
 
 @Table({
   name: {

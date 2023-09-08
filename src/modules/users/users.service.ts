@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Sequelize } from 'sequelize-typescript';
 
-import { Profile } from 'modules/profiles/profiles.entity';
-import { RolesService } from 'modules/roles/roles.service';
 import { PaginatedResponseDto } from 'shared/dto/paginated-response.dto';
 import { RoleUserExist } from 'shared/exceptions/role-user-exist';
 import { UserNotFound } from 'shared/exceptions/user-not-found';
 import { BooleanType } from 'shared/types/utils';
+
+import { Profile } from 'modules/profiles/profiles.entity';
+import { RolesService } from 'modules/roles/roles.service';
 
 import { BaseProfileDto } from '../profiles/dto/base-profile.dto';
 

@@ -16,13 +16,14 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
-import { UserService } from 'modules/users/users.service';
 import { AuthUser } from 'shared/decorators/auth-user';
 import { ApiValidationResponse } from 'shared/decorators/swagger';
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
 import { LocalAuthGuard } from 'shared/guards/local-auth.guard';
+
+import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
+import { UserService } from 'modules/users/users.service';
 
 import { SignInDto } from './dto/sign-in.dto';
 import { TokensDto } from './dto/tokens.dto';

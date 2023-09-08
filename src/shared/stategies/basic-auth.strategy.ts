@@ -3,9 +3,10 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { BasicStrategy } from 'passport-http';
 
-import { UserService } from 'modules/users/users.service';
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
 import { InvalidCredentials } from 'shared/exceptions/invalid-credentials';
+
+import { UserService } from 'modules/users/users.service';
 
 @Injectable()
 export class BasicAuthStrategy extends PassportStrategy(BasicStrategy) {

@@ -33,14 +33,14 @@ module.exports = {
           'error',
           {
             groups: [
-              // Packages `react` related packages come first.
               ['^@?\\w'],
               // Internal packages.
               [
-                '^(shared|modules)(/.*|$)',
+                '^(shared)(/.*|$)',
               ],
-              // Side effect imports.
-              ['^\\u0000'],
+              [
+                '^(modules)(/.*|$)',
+              ],
               // Parent imports. Put `..` last.
               ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
               // Other relative imports. Put same-folder imports and `.` last.
