@@ -38,10 +38,7 @@ export class UsersController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @ApiCreatedResponse({
-    description: 'success',
-    type: BaseUserDto,
-  })
+  @ApiCreatedResponse({ type: BaseUserDto })
   @ApiValidationResponse()
   @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
   create(@Body() createUserDto: CreateUserDto) {
@@ -76,7 +73,7 @@ export class UsersController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @ApiNoContentResponse({ description: 'success' })
+  @ApiNoContentResponse()
   @ApiValidationResponse()
   @ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
   @ApiBadRequestResponse({ type: BaseErrorResponseDto })

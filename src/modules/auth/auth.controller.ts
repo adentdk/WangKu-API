@@ -42,10 +42,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: SignInDto })
   @UseGuards(LocalAuthGuard)
-  @ApiOkResponse({
-    description: 'success',
-    type: TokensDto,
-  })
+  @ApiOkResponse({ type: TokensDto })
   @ApiValidationResponse()
   @ApiInternalServerErrorResponse()
   async signIn(@AuthUser() authUser: AuthUserDto) {
@@ -55,7 +52,7 @@ export class AuthController {
   @Get('profile')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ description: 'success', type: BaseProfileDto })
+  @ApiOkResponse({ type: BaseProfileDto })
   @ApiUnauthorizedResponse()
   @ApiInternalServerErrorResponse()
   async profile(@AuthUser() authUser: AuthUserDto) {

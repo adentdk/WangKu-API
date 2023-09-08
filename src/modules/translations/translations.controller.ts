@@ -18,10 +18,7 @@ export class TranslationsController {
   constructor(private readonly translationsService: TranslationsService) {}
 
   @Post()
-  @ApiCreatedResponse({
-    description: 'success',
-    type: BaseTranslationDto,
-  })
+  @ApiCreatedResponse({ type: BaseTranslationDto })
   @ApiValidationResponse()
   @ApiInternalServerResponse()
   create(@Body() createTranslationDto: CreateTranslationDto) {

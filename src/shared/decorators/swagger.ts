@@ -34,18 +34,12 @@ export const ApiPaginatedResponse = <TModel extends Type<any>>(
 
 export const ApiValidationResponse = () => {
   return applyDecorators(
-    ApiUnprocessableEntityResponse({
-      description: 'validation error',
-      type: ApiValidationErrorDto,
-    }),
+    ApiUnprocessableEntityResponse({ type: ApiValidationErrorDto }),
   );
 };
 
 export const ApiInternalServerResponse = () => {
   return applyDecorators(
-    ApiInternalServerErrorResponse({
-      description: 'server error',
-      type: BaseErrorResponseDto,
-    }),
+    ApiInternalServerErrorResponse({ type: BaseErrorResponseDto }),
   );
 };
