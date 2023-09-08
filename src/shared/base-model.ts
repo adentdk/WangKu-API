@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { UUIDV4 } from 'sequelize';
 import {
-  BelongsTo,
+  // BelongsTo,
   Column,
   DataType,
-  ForeignKey,
+  // ForeignKey,
   IsUUID,
   Model,
   PrimaryKey,
 } from 'sequelize-typescript';
 
-import { User } from 'modules/users/user.entity';
-
+// import { User } from 'modules/users/user.entity';
 import { PaginatedResponseDto } from './dto/paginated-response.dto';
 import { PaginationHelper } from './helpers/pagination';
 import { FindAllPaginated } from './types/sequelize';
@@ -30,32 +29,32 @@ export class BaseModel<
   })
   id: ID;
 
-  @ForeignKey(() => User)
+  // @ForeignKey(() => User)
   @Column(DataType.STRING(36))
   createdById: string;
 
-  @BelongsTo(() => User, {
-    foreignKey: 'createdById',
-  })
-  createdBy: User;
+  // @BelongsTo(() => User, {
+  //   foreignKey: 'createdById',
+  // })
+  // createdBy: User;
 
-  @ForeignKey(() => User)
+  // @ForeignKey(() => User)
   @Column(DataType.STRING(36))
   updatedById: string;
 
-  @BelongsTo(() => User, {
-    foreignKey: 'updatedById',
-  })
-  updatedBy: User;
+  // @BelongsTo(() => User, {
+  //   foreignKey: 'updatedById',
+  // })
+  // updatedBy: User;
 
-  @ForeignKey(() => User)
+  // @ForeignKey(() => User)
   @Column(DataType.STRING(36))
   deletedById: string;
 
-  @BelongsTo(() => User, {
-    foreignKey: 'deletedById',
-  })
-  deletedBy: User;
+  // @BelongsTo(() => User, {
+  //   foreignKey: 'deletedById',
+  // })
+  // deletedBy: User;
 
   static async findAllPaginated(
     options: FindAllPaginated,

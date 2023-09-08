@@ -10,11 +10,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "Node",
-    "baseUrl": ".",
-    "paths": {
-      "shared/*": ["src/shared/*"],
-      "modules/*": ["src/modules/*"],
-    },
+    "baseUrl": "./src",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

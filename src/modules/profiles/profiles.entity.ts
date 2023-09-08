@@ -20,8 +20,6 @@ interface FindByUserIdParams {
   options?: FindOptions<Attributes<Profile>>;
 }
 
-console.log(BaseModel);
-
 @Table({
   name: {
     singular: 'profile',
