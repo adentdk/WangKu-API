@@ -23,7 +23,6 @@ import { AuthUserDto } from 'shared/dto/auth-user.dto';
 import { BadRequest } from 'shared/exceptions/bad-request';
 import { BasicAuthGuard } from 'shared/guards/basic-auth.guard';
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
-import { LocalAuthGuard } from 'shared/guards/local-auth.guard';
 
 import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
 import { UserService } from 'modules/users/users.service';

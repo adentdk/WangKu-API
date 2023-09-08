@@ -1,9 +1,17 @@
-import { Attributes, FindOptions } from 'sequelize';
+import {
+  Attributes,
+  FindOptions,
+  InferAttributes,
+  InferCreationAttributes,
+  UUIDV4,
+} from 'sequelize';
 import {
   BelongsTo,
   Column,
   DataType,
   ForeignKey,
+  IsUUID,
+  PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 
@@ -11,9 +19,6 @@ import { BaseModel } from 'shared/base-model';
 import { Gender } from 'shared/types/profile';
 
 import { User } from 'modules/users/user.entity';
-
-import { BaseProfileDto } from './dto/base-profile.dto';
-import { CreateProfileDto } from './dto/create-profile.dto';
 
 interface FindByUserIdParams {
   userId: string;
@@ -27,7 +32,18 @@ interface FindByUserIdParams {
   },
   paranoid: true,
 })
-export class Profile extends BaseModel<BaseProfileDto, CreateProfileDto> {
+export class Profile extends BaseModel<
+  InferAttributes<Profile>,
+  InferCreationAttributes<Profile, { omit: 'user' | 'userId' }>
+> {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column({
+    type: DataType.STRING(36),
+    defaultValue: UUIDV4,
+  })
+  id: string;
+
   @Column({
     type: DataType.STRING(120),
     allowNull: false,

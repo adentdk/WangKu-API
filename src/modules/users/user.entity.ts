@@ -1,9 +1,16 @@
-import { Op } from 'sequelize';
+import {
+  InferAttributes,
+  InferCreationAttributes,
+  Op,
+  UUIDV4,
+} from 'sequelize';
 import {
   BelongsToMany,
   Column,
   DataType,
   HasOne,
+  IsUUID,
+  PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 
@@ -15,8 +22,6 @@ import { Profile } from 'modules/profiles/profiles.entity';
 import { RoleUser } from 'modules/role-user/role-user.entity';
 import { Role } from 'modules/roles/roles.entity';
 
-import { BaseUserDto } from './dto/base-user.dto';
-import { CreateUserDto } from './dto/create-user.dto';
 @Table({
   name: {
     singular: 'user',
@@ -24,7 +29,18 @@ import { CreateUserDto } from './dto/create-user.dto';
   },
   paranoid: true,
 })
-export class User extends BaseModel<BaseUserDto, CreateUserDto> {
+export class User extends BaseModel<
+  InferAttributes<User>,
+  InferCreationAttributes<User, { omit: 'roles' }>
+> {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column({
+    type: DataType.STRING(36),
+    defaultValue: UUIDV4,
+  })
+  id: string;
+
   @Column({
     type: DataType.STRING(64),
     unique: true,

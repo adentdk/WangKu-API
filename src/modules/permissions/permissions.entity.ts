@@ -1,3 +1,4 @@
+import { InferAttributes, InferCreationAttributes } from 'sequelize';
 import {
   AutoIncrement,
   BelongsToMany,
@@ -12,9 +13,6 @@ import { BaseModel } from 'shared/base-model';
 import { RolePermission } from 'modules/role-permission/role-permission.entity';
 import { Role } from 'modules/roles/roles.entity';
 
-import { BasePermissionDto } from './dto/base-permission.dto';
-import { CreatePermissionDto } from './dto/create-permission.dto';
-
 @Table({
   name: {
     singular: 'permission',
@@ -23,9 +21,8 @@ import { CreatePermissionDto } from './dto/create-permission.dto';
   paranoid: true,
 })
 export class Permission extends BaseModel<
-  BasePermissionDto,
-  CreatePermissionDto,
-  number
+  InferAttributes<Permission>,
+  InferCreationAttributes<Permission, { omit: 'roles' }>
 > {
   @PrimaryKey
   @AutoIncrement

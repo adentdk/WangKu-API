@@ -10,8 +10,6 @@ import { BooleanType } from 'shared/types/utils';
 import { Profile } from 'modules/profiles/profiles.entity';
 import { RolesService } from 'modules/roles/roles.service';
 
-import { BaseProfileDto } from '../profiles/dto/base-profile.dto';
-
 import { AddRoleUserDto } from './dto/add-role-user.dto';
 import { BaseUserDto } from './dto/base-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -29,7 +27,7 @@ export class UserService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.userModel.create(createUserDto, {
+    return this.userModel.create(createUserDto as any, {
       include: [this.profileModel],
       returning: ['id', 'email', 'phoneNumber', 'profile', 'username'],
     });
@@ -57,7 +55,7 @@ export class UserService {
     });
   }
 
-  async findOne(id: string): Promise<BaseUserDto> {
+  async findOne(id: string) {
     const user = await this.userModel.findByPk(id, {
       include: [this.profileModel],
       attributes: {
@@ -114,7 +112,7 @@ export class UserService {
     return;
   }
 
-  async findProfile(userId: string): Promise<BaseProfileDto> {
+  async findProfile(userId: string) {
     const profile = await this.profileModel.findByUserId({ userId });
     console.log(profile.fullName, 'halo', userId);
     if (profile === null) throw new UserNotFound();

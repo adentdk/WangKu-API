@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 
+import { Permission } from 'modules/permissions/permissions.entity';
 import { PermissionsModule } from 'modules/permissions/permissions.module';
 import { RolePermissionModule } from 'modules/role-permission/role-permission.module';
 
@@ -10,7 +11,7 @@ import { RolesService } from './roles.service';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Role]),
+    SequelizeModule.forFeature([Role, Permission]),
     PermissionsModule,
     RolePermissionModule,
   ],

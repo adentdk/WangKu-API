@@ -1,3 +1,4 @@
+import { InferAttributes, InferCreationAttributes } from 'sequelize';
 import {
   AutoIncrement,
   BelongsToMany,
@@ -8,12 +9,10 @@ import {
 } from 'sequelize-typescript';
 
 import { BaseModel } from 'shared/base-model';
+import { ErrorCodes } from 'shared/types/error-code';
 
 import { Permission } from 'modules/permissions/permissions.entity';
 import { RolePermission } from 'modules/role-permission/role-permission.entity';
-
-import { BaseRoleDto } from './dto/base-role.dto';
-import { CreateRoleDto } from './dto/create-role.dto';
 
 @Table({
   name: {
@@ -22,7 +21,10 @@ import { CreateRoleDto } from './dto/create-role.dto';
   },
   paranoid: true,
 })
-export class Role extends BaseModel<BaseRoleDto, CreateRoleDto, number> {
+export class Role extends BaseModel<
+  InferAttributes<Role>,
+  InferCreationAttributes<Role, { omit: 'permissions' | 'id' }>
+> {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -32,7 +34,10 @@ export class Role extends BaseModel<BaseRoleDto, CreateRoleDto, number> {
 
   @Column({
     type: DataType.STRING(64),
-    unique: true,
+    unique: {
+      name: 'RoleNameUnique',
+      msg: ErrorCodes.RoleNameUniqueError,
+    },
     allowNull: false,
   })
   name: string;

@@ -7,4 +7,5 @@ export enum ErrorCodes {
   UsernameOrPasswordInValid = 'UsernameOrPasswordInValid',
   InvalidCredentials = 'InvalidCredentials',
   TokenExpiredError = 'TokenExpiredError',
+  RoleNameUniqueError = 'RoleNameUniqueError',
 }

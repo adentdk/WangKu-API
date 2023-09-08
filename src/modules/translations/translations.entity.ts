@@ -1,3 +1,4 @@
+import { InferAttributes, InferCreationAttributes } from 'sequelize';
 import {
   AutoIncrement,
   BelongsTo,
@@ -12,9 +13,6 @@ import { BaseModel } from 'shared/base-model';
 
 import { Language } from '../languages/languages.entity';
 
-import { BaseTranslationDto } from './dto/base-translation.dto';
-import { CreateTranslationDto } from './dto/create-translation.dto';
-
 @Table({
   name: {
     singular: 'translation',
@@ -25,9 +23,8 @@ import { CreateTranslationDto } from './dto/create-translation.dto';
   indexes: [{ name: 'translation_namespace_index', fields: ['namespace'] }],
 })
 export class Translation extends BaseModel<
-  BaseTranslationDto,
-  CreateTranslationDto,
-  number
+  InferAttributes<Translation>,
+  InferCreationAttributes<Translation, { omit: 'language' | 'languageId' }>
 > {
   @PrimaryKey
   @AutoIncrement

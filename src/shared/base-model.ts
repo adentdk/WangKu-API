@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { UUIDV4 } from 'sequelize';
 import {
   // BelongsTo,
   Column,
   DataType,
   // ForeignKey,
-  IsUUID,
   Model,
-  PrimaryKey,
 } from 'sequelize-typescript';
 
 // import { User } from 'modules/users/user.entity';
@@ -17,18 +14,9 @@ import { FindAllPaginated } from './types/sequelize';
 
 @Injectable()
 export class BaseModel<
-  V extends object = any,
-  C extends object = V,
-  ID = string,
-> extends Model<V, C> {
-  @IsUUID(4)
-  @PrimaryKey
-  @Column({
-    type: DataType.STRING(36),
-    defaultValue: UUIDV4,
-  })
-  id: ID;
-
+  TModelAttributes = any,
+  TCreationAttributes = TModelAttributes,
+> extends Model<TModelAttributes, TCreationAttributes> {
   // @ForeignKey(() => User)
   @Column(DataType.STRING(36))
   createdById: string;
@@ -56,9 +44,15 @@ export class BaseModel<
   // })
   // deletedBy: User;
 
-  static async findAllPaginated(
-    options: FindAllPaginated,
-  ): Promise<PaginatedResponseDto> {
-    return PaginationHelper.findAllPaginated<BaseModel>(this, options);
+  static async findAllPaginated({
+    page = 1,
+    pageSize = 10,
+    options,
+  }: FindAllPaginated): Promise<PaginatedResponseDto> {
+    return PaginationHelper.findAllPaginated<BaseModel<any>>(this, {
+      page,
+      pageSize,
+      options,
+    });
   }
 }
