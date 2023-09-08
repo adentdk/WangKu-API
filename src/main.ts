@@ -43,7 +43,6 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('WangKu API')
     .setDescription('WangKu API')
-    .setVersion('1.0')
     .addBearerAuth()
     .addBasicAuth()
     .build();
@@ -54,6 +53,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

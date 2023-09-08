@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript';
 
 import { BaseModel } from 'shared/base-model';
+import { AuthUserDto } from 'shared/dto/auth-user.dto';
 import { BcryptFunction } from 'shared/helpers/hash';
 
 import { Profile } from 'modules/profiles/profiles.entity';
@@ -66,6 +67,14 @@ export class User extends BaseModel<BaseUserDto, CreateUserDto> {
     through: { model: () => RoleUser },
   })
   roles: [];
+
+  getAuthObject(): AuthUserDto {
+    return {
+      userId: this.id,
+      username: this.username,
+      publicUser: false,
+    };
+  }
 
   async checkPassword(plainPassword: string) {
     return BcryptFunction.verifyPassword(plainPassword, this.password);

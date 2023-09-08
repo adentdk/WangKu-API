@@ -116,7 +116,7 @@ export class UserService {
 
   async findProfile(userId: string): Promise<BaseProfileDto> {
     const profile = await this.profileModel.findByUserId({ userId });
-
+    console.log(profile.fullName, 'halo', userId);
     if (profile === null) throw new UserNotFound();
 
     return profile.toJSON();
@@ -125,7 +125,7 @@ export class UserService {
   async checkUsernamePassword(
     username: string,
     password: string,
-  ): Promise<BaseUserDto | null> {
+  ): Promise<User | null> {
     const user = await this.userModel.findByCredential(username);
 
     if (!user) return null;
@@ -134,7 +134,7 @@ export class UserService {
 
     if (!isPasswordValid) return null;
 
-    return user.toJSON();
+    return user;
   }
 
   async addRoleUser(userId: string, { roleId }: AddRoleUserDto) {

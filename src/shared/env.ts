@@ -14,7 +14,6 @@ export default () => ({
     database: process.env.DB_NAME,
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
     accessSecret: process.env.JWT_ACCESS_SECRET,
     accessExpired: process.env.JWT_ACCESS_EXPIRED,
     refreshSecret: process.env.JWT_REFRESH_SECRET,

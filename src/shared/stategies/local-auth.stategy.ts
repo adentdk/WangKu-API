@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
-import { UsernameOrPasswordInValid } from 'shared/exceptions/username-or-password-invalid';
+import { BadRequest } from 'shared/exceptions/bad-request';
 
 import { UserService } from 'modules/users/users.service';
 
@@ -18,7 +18,7 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
       username,
       password,
     );
-    if (!user) throw new UsernameOrPasswordInValid();
+    if (!user) throw new BadRequest();
 
     return {
       userId: user.id,

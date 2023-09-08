@@ -1,4 +1,5 @@
 export enum ErrorCodes {
+  BadRequest = 'BadRequest',
   UserNotFound = 'UserNotFound',
   RoleNotFound = 'RoleNotFound',
   PermissionNotFound = 'PermissionNotFound',

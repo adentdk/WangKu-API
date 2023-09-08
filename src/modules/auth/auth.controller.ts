@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpCode,
@@ -19,6 +20,8 @@ import {
 import { AuthUser } from 'shared/decorators/auth-user';
 import { ApiValidationResponse } from 'shared/decorators/swagger';
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
+import { BadRequest } from 'shared/exceptions/bad-request';
+import { BasicAuthGuard } from 'shared/guards/basic-auth.guard';
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
 import { LocalAuthGuard } from 'shared/guards/local-auth.guard';
 
@@ -41,12 +44,17 @@ export class AuthController {
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: SignInDto })
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(BasicAuthGuard)
   @ApiOkResponse({ type: TokensDto })
   @ApiValidationResponse()
   @ApiInternalServerErrorResponse()
-  async signIn(@AuthUser() authUser: AuthUserDto) {
-    return this.authService.getTokens(authUser);
+  async signIn(@Body() body: SignInDto) {
+    const user = await this.userService.checkUsernamePassword(
+      body.username,
+      body.password,
+    );
+    if (!user) throw new BadRequest();
+    return this.authService.getTokens(user.getAuthObject());
   }
 
   @Get('profile')

@@ -17,7 +17,7 @@ import { AuthService } from './auth.service';
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
         global: true,
-        secret: config.get<string>('jwt.secret'),
+        secret: config.get<string>('jwt.accessSecret'),
       }),
       inject: [ConfigService],
     }),
