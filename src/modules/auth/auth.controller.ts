@@ -7,18 +7,15 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiExtraModels,
-  ApiInternalServerErrorResponse,
-  ApiOkResponse,
-  ApiTags,
-  ApiUnauthorizedResponse,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { AuthUser } from 'shared/decorators/auth-user';
-import { ApiValidationResponse } from 'shared/decorators/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
+  ApiValidationResponse,
+} from 'shared/decorators/swagger';
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
 import { BadRequest } from 'shared/exceptions/bad-request';
 import { BasicAuthGuard } from 'shared/guards/basic-auth.guard';
@@ -33,7 +30,10 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 @ApiTags('auth')
-@ApiExtraModels(TokensDto)
+@ApiBadRequestResponse()
+@ApiUnauthorizedResponse()
+@ApiValidationResponse()
+@ApiInternalServerErrorResponse()
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -42,11 +42,8 @@ export class AuthController {
 
   @Post('signin')
   @HttpCode(HttpStatus.OK)
-  @ApiBody({ type: SignInDto })
   @UseGuards(BasicAuthGuard)
   @ApiOkResponse({ type: TokensDto })
-  @ApiValidationResponse()
-  @ApiInternalServerErrorResponse()
   async signIn(@Body() body: SignInDto) {
     const user = await this.userService.checkUsernamePassword(
       body.username,
@@ -60,8 +57,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: BaseProfileDto })
-  @ApiUnauthorizedResponse()
-  @ApiInternalServerErrorResponse()
   async profile(@AuthUser() authUser: AuthUserDto) {
     return this.userService.findProfile(authUser.userId);
   }

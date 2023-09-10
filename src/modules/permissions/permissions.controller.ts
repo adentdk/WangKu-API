@@ -9,12 +9,15 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
+import { ApiUnauthorizedResponse } from 'shared/decorators/swagger';
+
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 import { PermissionService } from './permissions.service';
 
 @ApiTags('permissions')
 @Controller('permissions')
+@ApiUnauthorizedResponse()
 export class PermissionsController {
   constructor(private readonly permissionService: PermissionService) {}
 

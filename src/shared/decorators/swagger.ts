@@ -1,7 +1,9 @@
 import { applyDecorators, Type } from '@nestjs/common';
 import {
-  ApiInternalServerErrorResponse,
+  ApiBadRequestResponse as SwaggerBadRequestResponse,
+  ApiInternalServerErrorResponse as SwaggerInternalServerErrorResponse,
   ApiOkResponse,
+  ApiUnauthorizedResponse as SwaggerUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
@@ -38,8 +40,20 @@ export const ApiValidationResponse = () => {
   );
 };
 
-export const ApiInternalServerResponse = () => {
+export const ApiInternalServerErrorResponse = () => {
   return applyDecorators(
-    ApiInternalServerErrorResponse({ type: BaseErrorResponseDto }),
+    SwaggerInternalServerErrorResponse({ type: BaseErrorResponseDto }),
+  );
+};
+
+export const ApiBadRequestResponse = () => {
+  return applyDecorators(
+    SwaggerBadRequestResponse({ type: BaseErrorResponseDto }),
+  );
+};
+
+export const ApiUnauthorizedResponse = () => {
+  return applyDecorators(
+    SwaggerUnauthorizedResponse({ type: BaseErrorResponseDto }),
   );
 };

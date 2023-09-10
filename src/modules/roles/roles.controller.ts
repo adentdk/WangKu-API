@@ -12,9 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiOkResponse,
   ApiTags,
@@ -22,11 +20,13 @@ import {
 
 import { AuthUser } from 'shared/decorators/auth-user';
 import {
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
   ApiPaginatedResponse,
+  ApiUnauthorizedResponse,
   ApiValidationResponse,
 } from 'shared/decorators/swagger';
 import { AuthUserDto } from 'shared/dto/auth-user.dto';
-import { BaseErrorResponseDto } from 'shared/dto/base-error-response.dto';
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
 
 import { BaseRoleDto } from './dto/base-role.dto';
@@ -39,8 +39,9 @@ import { RolesService } from './roles.service';
 @UseGuards(JwtAuthGuard)
 @ApiTags('roles')
 @ApiValidationResponse()
-@ApiBadRequestResponse({ type: BaseErrorResponseDto })
-@ApiInternalServerErrorResponse({ type: BaseErrorResponseDto })
+@ApiUnauthorizedResponse()
+@ApiBadRequestResponse()
+@ApiInternalServerErrorResponse()
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
