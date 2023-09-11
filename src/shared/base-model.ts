@@ -13,12 +13,12 @@ export class BaseModel<
   static async findAllPaginated({
     page = 1,
     pageSize = 10,
-    options,
+    ...otherOptions
   }: FindAllPaginated): Promise<PaginatedResponseDto> {
     return PaginationHelper.findAllPaginated<BaseModel<any>>(this, {
+      ...otherOptions,
       page,
       pageSize,
-      options,
     });
   }
 }

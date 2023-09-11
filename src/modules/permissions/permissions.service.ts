@@ -20,10 +20,11 @@ export class PermissionService {
 
   findAll({ page, pageSize, search }: ListPermissionParamsDto) {
     const whereOptions: WhereOptions<Attributes<Permission>> = {};
-    if (search)
+    if (search) {
       whereOptions.name = {
-        [Op.iLike]: search,
+        [Op.iLike]: `%${search}%`,
       };
+    }
 
     return this.permissionModel.findAllPaginated({
       page,

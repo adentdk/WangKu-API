@@ -18,11 +18,21 @@ export class PaginationHelper {
 
   static async findAllPaginated<M extends Model>(
     model: ModelStatic<M>,
-    { page, pageSize, options = { where: {} } }: FindAllPaginated,
+    {
+      page,
+      pageSize,
+      order,
+      orderBy,
+      options = { where: {} },
+    }: FindAllPaginated,
   ) {
+    let orderOptions: string[];
+    if (order && orderBy) {
+      orderOptions = [orderBy, order];
+    }
     const { limit, offset } = this.getLimitOffset(page, pageSize);
     const [results, total] = await Promise.all([
-      model.findAll({ limit, offset, ...options }),
+      model.findAll({ limit, offset, order: orderOptions, ...options }),
       model.count({ where: options.where }),
     ]);
     return {

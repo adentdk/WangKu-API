@@ -69,7 +69,7 @@ export class RolesService {
     const whereOptions: WhereOptions<Attributes<Role>> = {};
     if (search)
       whereOptions.name = {
-        [Op.iLike]: search,
+        [Op.iLike]: `%${search}%`,
       };
     return this.roleModel.findAllPaginated({
       page,
