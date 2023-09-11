@@ -37,6 +37,7 @@ export class Permission extends BaseModel<
   @Column({
     type: DataType.STRING(64),
     allowNull: false,
+    unique: true,
   })
   name: string;
 
@@ -55,7 +56,6 @@ export class Permission extends BaseModel<
 
   @Column({
     type: DataType.STRING,
-    unique: false,
     allowNull: false,
   })
   subject: string;

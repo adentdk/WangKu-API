@@ -9,6 +9,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -24,6 +25,8 @@ import {
   ApiUnauthorizedResponse,
   ApiValidationResponse,
 } from 'shared/decorators/swagger';
+import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
+import { PoliciesGuard } from 'shared/guards/policies.guard';
 
 import { AddRoleUserDto } from './dto/add-role-user.dto';
 import { BaseUserDto } from './dto/base-user.dto';
@@ -42,6 +45,7 @@ export class UsersController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiCreatedResponse({ type: BaseUserDto })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);

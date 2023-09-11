@@ -71,7 +71,6 @@ export class RolesService {
       whereOptions.name = {
         [Op.iLike]: search,
       };
-
     return this.roleModel.findAllPaginated({
       page,
       pageSize,
@@ -86,7 +85,7 @@ export class RolesService {
 
     if (role === null) throw new RoleNotFound();
 
-    return role.toJSON();
+    return role;
   }
 
   update(id: number, updateRoleDto: UpdateRoleDto) {

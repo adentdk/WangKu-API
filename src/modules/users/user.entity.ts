@@ -84,7 +84,7 @@ export class User extends BaseModel<
   @BelongsToMany(() => Role, {
     through: { model: () => RoleUser },
   })
-  roles: [];
+  roles: Role[];
 
   @ForeignKey(() => User)
   @Column(DataType.STRING(36))

@@ -4,5 +4,8 @@ import { BasePermissionDto } from './base-permission.dto';
 
 export class CreatePermissionDto extends PickType(BasePermissionDto, [
   'name',
-  'entity',
+  'description',
+  'action',
+  'subject',
+  'conditions',
 ]) {}

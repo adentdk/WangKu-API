@@ -20,7 +20,7 @@ import { Role } from 'modules/roles/roles.entity';
 })
 export class RolePermission extends Model {
   @BelongsTo(() => Permission)
-  apiPermission!: Permission;
+  permission!: Permission;
 
   @ForeignKey(() => Permission)
   @PrimaryKey
@@ -28,7 +28,7 @@ export class RolePermission extends Model {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  apiPermissionId!: number;
+  permissionId!: number;
 
   @BelongsTo(() => Role)
   role!: Role;
