@@ -7,11 +7,17 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBasicAuth,
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { AuthUser } from 'shared/decorators/auth-user';
 import {
   ApiBadRequestResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
   ApiValidationResponse,
@@ -30,6 +36,7 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 @ApiTags('auth')
+@ApiForbiddenResponse()
 @ApiBadRequestResponse()
 @ApiUnauthorizedResponse()
 @ApiValidationResponse()
@@ -43,6 +50,7 @@ export class AuthController {
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   @UseGuards(BasicAuthGuard)
+  @ApiBasicAuth()
   @ApiOkResponse({ type: TokensDto })
   async signIn(@Body() body: SignInDto) {
     const user = await this.userService.checkUsernamePassword(

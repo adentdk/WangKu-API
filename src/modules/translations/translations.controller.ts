@@ -1,8 +1,14 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBasicAuth,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import {
   ApiBadRequestResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiPaginatedResponse,
   ApiUnauthorizedResponse,
@@ -16,6 +22,7 @@ import { TranslationsService } from './translations.service';
 
 @ApiTags('translations')
 @Controller('translations')
+@ApiForbiddenResponse()
 @ApiValidationResponse()
 @ApiInternalServerErrorResponse()
 @ApiBadRequestResponse()
@@ -24,12 +31,14 @@ export class TranslationsController {
   constructor(private readonly translationsService: TranslationsService) {}
 
   @Post()
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: BaseTranslationDto })
   create(@Body() createTranslationDto: CreateTranslationDto) {
     return this.translationsService.create(createTranslationDto);
   }
 
   @Get()
+  @ApiBearerAuth()
   @ApiPaginatedResponse(BaseTranslationDto)
   @ApiValidationResponse()
   findAll(@Query() listTranslationDto: ListTranslationParamsDto) {
@@ -37,6 +46,8 @@ export class TranslationsController {
   }
 
   @Get('languages/:langCode/namespaces/:ns')
+  @ApiBearerAuth()
+  @ApiBasicAuth()
   translate(@Param('langCode') langCode: string, @Param('ns') ns: string) {
     return this.translationsService.translateByLanguageAndNamespace({
       langCode,
@@ -45,6 +56,8 @@ export class TranslationsController {
   }
 
   @Post('languages/:langCode/namespaces/:ns')
+  @ApiBearerAuth()
+  @ApiBasicAuth()
   addTranslate(
     @Param('langCode') langCode: string,
     @Param('ns') ns: string,

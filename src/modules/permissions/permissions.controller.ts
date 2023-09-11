@@ -8,10 +8,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import {
   ApiBadRequestResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
   ApiValidationResponse,
@@ -24,6 +25,7 @@ import { PermissionService } from './permissions.service';
 
 @ApiTags('permissions')
 @Controller('permissions')
+@ApiForbiddenResponse()
 @ApiUnauthorizedResponse()
 @ApiBadRequestResponse()
 @ApiInternalServerErrorResponse()
@@ -32,21 +34,25 @@ export class PermissionsController {
   constructor(private readonly permissionService: PermissionService) {}
 
   @Post()
+  @ApiBearerAuth()
   create(@Body() createPermissionDto: CreatePermissionDto) {
     return this.permissionService.create(createPermissionDto);
   }
 
   @Get()
+  @ApiBearerAuth()
   findAll(@Query() queryParams: ListPermissionParamsDto) {
     return this.permissionService.findAll(queryParams);
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   findOne(@Param('id') id: string) {
     return this.permissionService.findOne(+id);
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
   update(
     @Param('id') id: string,
     @Body() updatePermissionDto: UpdatePermissionDto,
@@ -55,6 +61,7 @@ export class PermissionsController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   remove(@Param('id') id: string) {
     return this.permissionService.remove(+id);
   }

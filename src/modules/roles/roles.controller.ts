@@ -13,6 +13,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
@@ -23,6 +24,7 @@ import { AuthUser } from 'shared/decorators/auth-user';
 import { CheckPolicies } from 'shared/decorators/policies';
 import {
   ApiBadRequestResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiPaginatedResponse,
   ApiUnauthorizedResponse,
@@ -40,6 +42,7 @@ import { RolesService } from './roles.service';
 
 @Controller('roles')
 @ApiTags('roles')
+@ApiForbiddenResponse()
 @ApiValidationResponse()
 @ApiUnauthorizedResponse()
 @ApiBadRequestResponse()
@@ -49,6 +52,7 @@ export class RolesController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: BaseRoleDto })
   create(
     @Body() createRoleDto: CreateRoleDto,
@@ -59,6 +63,7 @@ export class RolesController {
 
   @Get()
   @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @ApiBearerAuth()
   @CheckPolicies((ability: AnyAbility) => ability.can('manage', 'User'))
   @ApiPaginatedResponse(BaseRoleDto)
   async findAll(@Query() queryParams: ListRoleParamsDto) {
@@ -67,6 +72,7 @@ export class RolesController {
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: BaseRoleDto })
   findOne(@Param('id') id: string) {
     return this.rolesService.findOne(+id);
@@ -74,6 +80,7 @@ export class RolesController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: BaseRoleDto })
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     return this.rolesService.update(+id, updateRoleDto);
@@ -82,6 +89,7 @@ export class RolesController {
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiBearerAuth()
   @ApiNoContentResponse()
   remove(@Param('id') id: string) {
     return this.rolesService.remove(+id);

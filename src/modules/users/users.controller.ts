@@ -12,6 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
@@ -20,6 +21,7 @@ import {
 
 import {
   ApiBadRequestResponse,
+  ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiPaginatedResponse,
   ApiUnauthorizedResponse,
@@ -37,6 +39,7 @@ import { UserService } from './users.service';
 
 @ApiTags('users')
 @Controller('users')
+@ApiForbiddenResponse()
 @ApiValidationResponse()
 @ApiInternalServerErrorResponse()
 @ApiBadRequestResponse()
@@ -45,6 +48,7 @@ export class UsersController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiCreatedResponse({ type: BaseUserDto })
   create(@Body() createUserDto: CreateUserDto) {
@@ -52,24 +56,28 @@ export class UsersController {
   }
 
   @Get()
+  @ApiBearerAuth()
   @ApiPaginatedResponse(BaseUserDto)
   findAll(@Query() listParams: ListUserParamsDto) {
     return this.userService.findAll(listParams);
   }
 
   @Get(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ type: BaseUserDto })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ type: BaseUserDto })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse()
   remove(@Param('id') id: string) {
@@ -77,6 +85,7 @@ export class UsersController {
   }
 
   @Post(':id/roles')
+  @ApiBearerAuth()
   addRoleUser(@Param('id') id: string, @Body() addUserDto: AddRoleUserDto) {
     return this.userService.addRoleUser(id, addUserDto);
   }
