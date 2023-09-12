@@ -38,6 +38,11 @@ import { UsersModule } from 'modules/users/users.module';
         database: config.get<string>('DB_NAME'),
         autoLoadModels: true,
         synchronize: true,
+        sync: {
+          alter: {
+            drop: false,
+          },
+        },
       }),
       inject: [ConfigService],
     }),

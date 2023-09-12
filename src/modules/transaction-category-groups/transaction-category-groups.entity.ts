@@ -58,7 +58,13 @@ export class TransactionCategoryGroup extends BaseModel<
     type: DataType.STRING,
     allowNull: true,
   })
-  translationKey: string;
+  tNameKey: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  tDescKey: string;
 
   @Column({
     type: DataType.STRING,

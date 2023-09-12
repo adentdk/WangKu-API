@@ -48,6 +48,18 @@ export class TransactionCategory extends Model<
   description: string;
 
   @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  tNameKey: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
+  tDescKey: string;
+
+  @Column({
     type: DataType.SMALLINT,
     allowNull: false,
   })
