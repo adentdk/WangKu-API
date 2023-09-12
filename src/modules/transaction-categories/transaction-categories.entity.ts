@@ -48,7 +48,7 @@ export class TransactionCategory extends Model<
   description: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.SMALLINT,
     allowNull: false,
   })
   type: TransactionType;
@@ -60,7 +60,7 @@ export class TransactionCategory extends Model<
   icon: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.SMALLINT,
     allowNull: true,
   })
   iconType: IconType;

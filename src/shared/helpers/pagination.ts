@@ -26,9 +26,9 @@ export class PaginationHelper {
       options = { where: {} },
     }: FindAllPaginated,
   ) {
-    let orderOptions: string[];
+    let orderOptions: any;
     if (order && orderBy) {
-      orderOptions = [orderBy, order];
+      orderOptions = [[orderBy, order]];
     }
     const { limit, offset } = this.getLimitOffset(page, pageSize);
     const [results, total] = await Promise.all([

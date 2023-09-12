@@ -82,8 +82,12 @@ export class RolesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: BaseRoleDto })
-  update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    return this.rolesService.update(+id, updateRoleDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateRoleDto: UpdateRoleDto,
+    @AuthUser() authUser: AuthUserDto,
+  ) {
+    return this.rolesService.update(+id, updateRoleDto, authUser.userId);
   }
 
   @Delete(':id')

@@ -6,11 +6,11 @@ import {
   ForeignKey,
   HasMany,
   IsUUID,
-  Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 
+import { BaseModel } from 'shared/base-model';
 import { IconType } from 'shared/types/general';
 import { TransactionType } from 'shared/types/transaction';
 
@@ -24,7 +24,7 @@ import { User } from 'modules/users/user.entity';
   },
   paranoid: true,
 })
-export class TransactionCategoryGroup extends Model<
+export class TransactionCategoryGroup extends BaseModel<
   InferAttributes<TransactionCategoryGroup>,
   InferCreationAttributes<TransactionCategoryGroup>
 > {
@@ -49,7 +49,7 @@ export class TransactionCategoryGroup extends Model<
   description: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.SMALLINT,
     allowNull: false,
   })
   type: TransactionType;
@@ -58,10 +58,16 @@ export class TransactionCategoryGroup extends Model<
     type: DataType.STRING,
     allowNull: true,
   })
+  translationKey: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+  })
   icon: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.SMALLINT,
     allowNull: true,
   })
   iconType: IconType;

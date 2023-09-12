@@ -65,7 +65,7 @@ export class Profile extends BaseModel<
   dateOfBirth: string | null;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.SMALLINT,
     allowNull: true,
     defaultValue: null,
   })

@@ -3,13 +3,11 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Attributes, Op, UniqueConstraintError, WhereOptions } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
 
-import { PaginatedResponseDto } from 'shared/dto/paginated-response.dto';
 import { BadRequest } from 'shared/exceptions/bad-request';
 import { RoleNotFound } from 'shared/exceptions/role-not-found';
 
 import { Permission } from 'modules/permissions/permissions.entity';
 
-import { BaseRoleDto } from './dto/base-role.dto';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { ListRoleParamsDto } from './dto/list-role-params.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
@@ -67,7 +65,7 @@ export class RolesService {
     pageSize,
     order = 'desc',
     orderBy = 'createdAt',
-  }: ListRoleParamsDto): Promise<PaginatedResponseDto<BaseRoleDto>> {
+  }: ListRoleParamsDto) {
     const whereOptions: WhereOptions<Attributes<Role>> = {};
     if (search)
       whereOptions.name = {
@@ -92,8 +90,40 @@ export class RolesService {
     return role;
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role`;
+  async update(
+    id: number,
+    { permissionIds, ...roleData }: UpdateRoleDto,
+    authUserId: string,
+  ) {
+    try {
+      const role = await this.roleModel.findByPk(id);
+      if (!role) throw new RoleNotFound();
+      let permissions = [];
+
+      if (permissionIds?.length) {
+        permissions = await this.permissionModel.findAll({
+          where: { id: { [Op.in]: permissionIds } },
+        });
+
+        if (permissionIds.length !== permissions.length) throw new BadRequest();
+      }
+
+      await this.sequelize.transaction(async (t) => {
+        const transactionHost = { transaction: t };
+        await role.update(
+          { ...roleData, updatedById: authUserId },
+          transactionHost,
+        );
+
+        if (permissionIds.length) {
+          await role.$set('permissions', permissionIds, transactionHost);
+        }
+      });
+
+      return role;
+    } catch (error) {
+      throw error;
+    }
   }
 
   remove(id: number) {
