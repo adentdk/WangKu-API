@@ -16,6 +16,10 @@ import { RolesModule } from 'modules/roles/roles.module';
 import { TransactionsModule } from 'modules/transactions/transactions.module';
 import { TranslationsModule } from 'modules/translations/translations.module';
 import { UsersModule } from 'modules/users/users.module';
+import { TransactionCategoriesModule } from './modules/transaction-categories/transaction-categories.module';
+import { TransactionCategoryGroupsModule } from './modules/transaction-category-groups/transaction-category-groups.module';
+import { TransactionDebtModule } from './modules/transaction-debt/transaction-debt.module';
+import { TransactionCreditModule } from './modules/transaction-credit/transaction-credit.module';
 
 @Module({
   imports: [
@@ -45,6 +49,10 @@ import { UsersModule } from 'modules/users/users.module';
     TranslationsModule,
     TransactionsModule,
     CaslModule,
+    TransactionCategoriesModule,
+    TransactionCategoryGroupsModule,
+    TransactionDebtModule,
+    TransactionCreditModule,
   ],
   controllers: [],
   providers: [JwtAuthStrategy, BasicAuthStrategy],
