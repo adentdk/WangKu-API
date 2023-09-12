@@ -5,11 +5,11 @@ import {
   DataType,
   ForeignKey,
   IsUUID,
-  Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 
+import { BaseModel } from 'shared/base-model';
 import { IconType } from 'shared/types/general';
 import { TransactionType } from 'shared/types/transaction';
 
@@ -23,7 +23,7 @@ import { User } from 'modules/users/user.entity';
   },
   paranoid: true,
 })
-export class TransactionCategory extends Model<
+export class TransactionCategory extends BaseModel<
   InferAttributes<TransactionCategory>,
   InferCreationAttributes<TransactionCategory>
 > {
