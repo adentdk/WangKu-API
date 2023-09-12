@@ -37,6 +37,8 @@ export class UserService {
     page,
     pageSize,
     withProfile,
+    order = 'asc',
+    orderBy = 'createdAt',
   }: ListUserParamsDto): Promise<PaginatedResponseDto<BaseUserDto>> {
     const include = [];
     if (withProfile === BooleanType.True) {
@@ -46,6 +48,8 @@ export class UserService {
     return this.userModel.findAllPaginated({
       page,
       pageSize,
+      order,
+      orderBy,
       options: {
         include,
         attributes: {

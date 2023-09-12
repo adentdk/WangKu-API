@@ -62,9 +62,11 @@ export class RolesService {
   }
 
   findAll({
+    search,
     page,
     pageSize,
-    search,
+    order = 'desc',
+    orderBy = 'createdAt',
   }: ListRoleParamsDto): Promise<PaginatedResponseDto<BaseRoleDto>> {
     const whereOptions: WhereOptions<Attributes<Role>> = {};
     if (search)
@@ -74,6 +76,8 @@ export class RolesService {
     return this.roleModel.findAllPaginated({
       page,
       pageSize,
+      order,
+      orderBy,
       options: {
         where: whereOptions,
       },

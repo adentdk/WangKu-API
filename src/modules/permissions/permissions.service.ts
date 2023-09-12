@@ -18,7 +18,13 @@ export class PermissionService {
     return this.permissionModel.create(createPermission);
   }
 
-  findAll({ page, pageSize, search }: ListPermissionParamsDto) {
+  findAll({
+    search,
+    page,
+    pageSize,
+    order = 'desc',
+    orderBy = 'createdAt',
+  }: ListPermissionParamsDto) {
     const whereOptions: WhereOptions<Attributes<Permission>> = {};
     if (search) {
       whereOptions.name = {
@@ -29,6 +35,8 @@ export class PermissionService {
     return this.permissionModel.findAllPaginated({
       page,
       pageSize,
+      order,
+      orderBy,
       options: {
         where: whereOptions,
       },

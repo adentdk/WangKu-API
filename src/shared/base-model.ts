@@ -15,7 +15,7 @@ export class BaseModel<
     pageSize = 10,
     ...otherOptions
   }: FindAllPaginated): Promise<PaginatedResponseDto> {
-    return PaginationHelper.findAllPaginated<BaseModel<any>>(this, {
+    return PaginationHelper.findAllPaginated(this, {
       ...otherOptions,
       page,
       pageSize,
