@@ -21,5 +21,5 @@ export class ApiValidationErrorDto extends BaseErrorResponseDto {
     type: [FieldErrorDto],
   })
   @Type(() => FieldErrorDto)
-  fields: FieldErrorDto[];
+  data: FieldErrorDto[];
 }

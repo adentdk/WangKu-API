@@ -21,7 +21,7 @@ async function bootstrap() {
       exceptionFactory: (errors: ValidationError[]) => {
         const errorResponse = {
           message: 'Validation Error',
-          fields: errors.map((error) => ({
+          data: errors.map((error) => ({
             field: error.property,
             constraints: error.constraints,
           })),
