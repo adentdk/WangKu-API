@@ -41,4 +41,14 @@ export class BaseTransactionCategoryGroup extends BaseEntityDto {
   @IsOptional()
   @IsString()
   userId: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  tNameKey: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  tDescKey: string;
 }

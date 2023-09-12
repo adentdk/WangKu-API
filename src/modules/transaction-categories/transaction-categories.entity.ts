@@ -79,6 +79,13 @@ export class TransactionCategory extends Model<
 
   @ForeignKey(() => TransactionCategoryGroup)
   @Column(DataType.STRING(36))
+  transactionCategoryGroupId: string;
+
+  @BelongsTo(() => TransactionCategoryGroup, {
+    foreignKey: 'transactionCategoryGroupId',
+  })
+  transactionCategoryGroup: TransactionCategoryGroup;
+
   @ForeignKey(() => User)
   @Column(DataType.STRING(36))
   userId: string;
