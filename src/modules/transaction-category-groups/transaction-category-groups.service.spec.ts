@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { TransactionCategoryGroupsService } from './transaction-category-groups.service';
 
 describe('TransactionCategoryGroupsService', () => {
@@ -9,7 +10,9 @@ describe('TransactionCategoryGroupsService', () => {
       providers: [TransactionCategoryGroupsService],
     }).compile();
 
-    service = module.get<TransactionCategoryGroupsService>(TransactionCategoryGroupsService);
+    service = module.get<TransactionCategoryGroupsService>(
+      TransactionCategoryGroupsService,
+    );
   });
 
   it('should be defined', () => {

@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { TransactionCategoryGroupsController } from './transaction-category-groups.controller';
 
 describe('TransactionCategoryGroupsController', () => {
@@ -9,7 +10,9 @@ describe('TransactionCategoryGroupsController', () => {
       controllers: [TransactionCategoryGroupsController],
     }).compile();
 
-    controller = module.get<TransactionCategoryGroupsController>(TransactionCategoryGroupsController);
+    controller = module.get<TransactionCategoryGroupsController>(
+      TransactionCategoryGroupsController,
+    );
   });
 
   it('should be defined', () => {
