@@ -1,20 +1,13 @@
 import {
   Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBasicAuth,
-  ApiBearerAuth,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBasicAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
-import { AuthUser } from 'shared/decorators/auth-user';
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -22,12 +15,9 @@ import {
   ApiUnauthorizedResponse,
   ApiValidationResponse,
 } from 'shared/decorators/swagger';
-import { AuthUserDto } from 'shared/dto/auth-user.dto';
 import { BadRequest } from 'shared/exceptions/bad-request';
 import { BasicAuthGuard } from 'shared/guards/basic-auth.guard';
-import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
 
-import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
 import { UserService } from 'modules/users/users.service';
 
 import { SignInDto } from './dto/sign-in.dto';
@@ -59,13 +49,5 @@ export class AuthController {
     );
     if (!user) throw new BadRequest();
     return this.authService.getTokens(user.getAuthObject());
-  }
-
-  @Get('profile')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOkResponse({ type: BaseProfileDto })
-  async profile(@AuthUser() authUser: AuthUserDto) {
-    return this.userService.findProfile(authUser.userId);
   }
 }

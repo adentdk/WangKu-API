@@ -7,6 +7,7 @@ import { BasicAuthStrategy } from 'shared/stategies/basic-auth.strategy';
 import { JwtAuthStrategy } from 'shared/stategies/jwt-auth.strategy';
 
 import { AuthModule } from 'modules/auth/auth.module';
+import { AuthProfileModule } from 'modules/auth-profile/auth-profile.module';
 import { CaslModule } from 'modules/casl/casl.module';
 import { CurrenciesModule } from 'modules/currencies/currencies.module';
 import { EventsModule } from 'modules/events/events.module';
@@ -47,6 +48,7 @@ import { UsersModule } from 'modules/users/users.module';
       inject: [ConfigService],
     }),
     AuthModule,
+    AuthProfileModule,
     PermissionsModule,
     RolePermissionModule,
     RolesModule,
