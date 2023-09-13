@@ -7,6 +7,6 @@ import { ProfilesService } from './profiles.service';
   imports: [SequelizeModule.forFeature([Profile])],
   controllers: [],
   providers: [ProfilesService],
-  exports: [],
+  exports: [ProfilesService],
 })
 export class ProfilesModule {}

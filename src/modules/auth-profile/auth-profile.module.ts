@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { UsersModule } from 'modules/users/users.module';
+import { CaslModule } from 'modules/casl/casl.module';
+import { ProfilesModule } from 'modules/profiles/profiles.module';
 
 import { AuthProfileController } from './auth-profile.controller';
 
 @Module({
-  imports: [UsersModule],
+  imports: [ProfilesModule, CaslModule],
   controllers: [AuthProfileController],
   providers: [],
 })

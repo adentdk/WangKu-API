@@ -24,11 +24,25 @@ export class UserService {
     @InjectModel(User) private userModel: typeof User,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.userModel.create(createUserDto as any, {
-      include: ['profile'],
-      returning: ['id', 'email', 'phoneNumber', 'profile', 'username'],
-    });
+  async create({ profile: profileData, ...userData }: CreateUserDto) {
+    try {
+      const user = await this.sequelize.transaction(async (t) => {
+        const transactionHost = { transaction: t };
+        const user = await this.userModel.create(
+          { ...userData, profile: profileData as any },
+          {
+            include: ['profile'],
+            ...transactionHost,
+          },
+        );
+
+        return user;
+      });
+
+      return user;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async findAll({
@@ -110,15 +124,6 @@ export class UserService {
     await user.destroy();
 
     return;
-  }
-
-  async findProfile(userId: string) {
-    const user = await this.userModel.findByPk(userId, {
-      include: ['profile'],
-    });
-    if (user === null) throw new UserNotFound();
-
-    return user.profile;
   }
 
   async checkUsernamePassword(

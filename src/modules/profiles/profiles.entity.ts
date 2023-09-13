@@ -34,7 +34,7 @@ interface FindByUserIdParams {
 })
 export class Profile extends BaseModel<
   InferAttributes<Profile>,
-  InferCreationAttributes<Profile, { omit: 'user' | 'userId' }>
+  InferCreationAttributes<Profile, { omit: 'user' | 'userId' | 'id' }>
 > {
   @IsUUID(4)
   @PrimaryKey
