@@ -1,4 +1,4 @@
-import { BasicUser } from './general';
+import { SimpleUser } from 'shared/dto/simple-user.dto';
 
 export enum TransactionType {
   Income = 1,
@@ -14,5 +14,5 @@ export enum TransactionAccountType {
   Connected = 2,
 }
 
-export type Debtor = BasicUser;
-export type Lender = BasicUser;
+export type Debtor = SimpleUser;
+export type Lender = SimpleUser;

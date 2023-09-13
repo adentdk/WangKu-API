@@ -10,21 +10,19 @@ import {
 } from 'sequelize-typescript';
 
 import { BaseModel } from 'shared/base-model';
-import { Debtor } from 'shared/types/transaction';
 
-import { TransactionCategory } from 'modules/transaction-categories/transaction-categories.entity';
 import { User } from 'modules/users/user.entity';
 
 @Table({
   name: {
-    singular: 'transaction_debt',
-    plural: 'transaction_debts',
+    singular: 'event',
+    plural: 'events',
   },
   paranoid: true,
 })
-export class TransactionDebt extends BaseModel<
-  InferAttributes<TransactionDebt>,
-  InferCreationAttributes<TransactionDebt>
+export class Event extends BaseModel<
+  InferAttributes<Event>,
+  InferCreationAttributes<Event>
 > {
   @IsUUID(4)
   @PrimaryKey
@@ -35,16 +33,10 @@ export class TransactionDebt extends BaseModel<
   id: string;
 
   @Column({
-    type: DataType.STRING(3),
+    type: DataType.STRING(32),
     allowNull: false,
   })
-  currencyCode: string;
-
-  @Column({
-    type: DataType.DECIMAL(20, 4),
-    allowNull: false,
-  })
-  amount: number;
+  name: string;
 
   @Column({
     type: DataType.STRING,
@@ -56,31 +48,13 @@ export class TransactionDebt extends BaseModel<
     type: DataType.DATEONLY,
     allowNull: false,
   })
-  date: string;
+  start_date: string;
 
   @Column({
-    type: DataType.JSONB,
-    allowNull: true,
+    type: DataType.DATEONLY,
+    allowNull: false,
   })
-  debtorJSON: Debtor;
-
-  @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
-  debtorId: string;
-
-  @BelongsTo(() => User, {
-    foreignKey: 'debtorId',
-  })
-  debtor: User;
-
-  @ForeignKey(() => TransactionCategory)
-  @Column(DataType.STRING(36))
-  transactionCategoryId: string;
-
-  @BelongsTo(() => TransactionCategory, {
-    foreignKey: 'transactionCategoryId',
-  })
-  transactionCategory: TransactionCategory;
+  end_date: string;
 
   @ForeignKey(() => User)
   @Column(DataType.STRING(36))
