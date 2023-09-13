@@ -8,7 +8,7 @@ import { User } from 'modules/users/user.entity';
 
 import { defineAbilitiesForUser, PermissionItem } from './ability';
 
-const USER_PERMISSION_KEY = `user_permission`;
+const USER_PERMISSION_KEY = 'user_permission';
 
 @Injectable()
 export class CaslAbilityFactory {
@@ -18,7 +18,7 @@ export class CaslAbilityFactory {
   ) {}
 
   async createForUser(userId: string) {
-    const cacheKey = `${USER_PERMISSION_KEY}_${userId}`;
+    const cacheKey = `${USER_PERMISSION_KEY}:${userId}`;
 
     const permissionCache = await this.cacheManager.get<
       PermissionItem[] | null
@@ -36,7 +36,7 @@ export class CaslAbilityFactory {
           include: [
             {
               association: 'permissions',
-              attributes: ['action', 'subject', 'conditions', 'name'],
+              attributes: ['name', 'action', 'subject', 'conditions'],
             },
           ],
         },
