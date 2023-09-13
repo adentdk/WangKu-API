@@ -51,7 +51,13 @@ async function bootstrap() {
     extraModels: [BaseErrorResponseDto, PaginatedResponseDto],
   });
 
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('docs', app, document, {
+    jsonDocumentUrl: '/a.json',
+    swaggerOptions: {
+      tagsSorter: 'alpha',
+      operationsSorter: 'alpha',
+    },
+  });
 
   await app.listen(process.env.PORT || 3000);
 }

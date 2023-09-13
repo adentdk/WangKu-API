@@ -48,6 +48,7 @@ export class AuthController {
       body.password,
     );
     if (!user) throw new BadRequest();
+
     return this.authService.getTokens(user.getAuthObject());
   }
 }

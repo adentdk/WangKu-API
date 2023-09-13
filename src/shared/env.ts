@@ -19,4 +19,8 @@ export default () => ({
     refreshSecret: process.env.JWT_REFRESH_SECRET,
     refreshExpired: process.env.JWT_REFRESH_EXPIRED,
   },
+  cache: {
+    ttl: process.env.REDIS_CACHE_TTL,
+    url: process.env.REDIS_CACHE_URL,
+  },
 });

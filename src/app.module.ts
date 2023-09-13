@@ -1,6 +1,10 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { redisStore } from 'cache-manager-redis-store';
+import { RedisClientOptions } from 'redis';
 
 import env from 'shared/env';
 import { BasicAuthStrategy } from 'shared/stategies/basic-auth.strategy';
@@ -44,6 +48,25 @@ import { UsersModule } from 'modules/users/users.module';
             drop: false,
           },
         },
+      }),
+      inject: [ConfigService],
+    }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      global: true,
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('jwt.accessSecret'),
+      }),
+      inject: [ConfigService],
+    }),
+    CacheModule.registerAsync<RedisClientOptions>({
+      isGlobal: true,
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        store: await redisStore({
+          url: config.get<string>('cache.url'),
+          ttl: +config.get<string>('cache.ttl'),
+        }),
       }),
       inject: [ConfigService],
     }),

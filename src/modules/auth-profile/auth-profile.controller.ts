@@ -19,7 +19,7 @@ import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
 import { ProfilesService } from 'modules/profiles/profiles.service';
 
 @Controller('auth')
-@ApiTags('auth')
+@ApiTags('auth-profile')
 @ApiForbiddenResponse()
 @ApiBadRequestResponse()
 @ApiUnauthorizedResponse()
