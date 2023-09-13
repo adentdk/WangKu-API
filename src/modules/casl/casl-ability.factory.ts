@@ -6,7 +6,7 @@ import Handlebars from 'handlebars';
 
 import { User } from 'modules/users/user.entity';
 
-import { defineAbilitiesForUser } from './ability';
+import { defineAbilitiesForUser, PermissionItem } from './ability';
 
 const USER_PERMISSION_KEY = `user_permission`;
 
@@ -20,9 +20,9 @@ export class CaslAbilityFactory {
   async createForUser(userId: string) {
     const cacheKey = `${USER_PERMISSION_KEY}_${userId}`;
 
-    const permissionCache = await this.cacheManager.get<any[][] | null>(
-      cacheKey,
-    );
+    const permissionCache = await this.cacheManager.get<
+      PermissionItem[] | null
+    >(cacheKey);
 
     if (permissionCache !== null)
       return defineAbilitiesForUser(permissionCache);
@@ -43,7 +43,7 @@ export class CaslAbilityFactory {
       ],
     });
 
-    const permissions: any[][] = [];
+    const permissions: PermissionItem[] = [];
 
     user.roles.forEach((role) => {
       role.permissions.forEach((permission) => {
