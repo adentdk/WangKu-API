@@ -38,7 +38,7 @@ export class PaginationHelper {
     return {
       total,
       totalPage: this.getTotalPages(total, pageSize),
-      results: results.map((user) => user.toJSON()),
+      results,
     };
   }
 }

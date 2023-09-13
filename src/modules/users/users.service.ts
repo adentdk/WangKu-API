@@ -7,7 +7,6 @@ import { RoleUserExist } from 'shared/exceptions/role-user-exist';
 import { UserNotFound } from 'shared/exceptions/user-not-found';
 import { BooleanType } from 'shared/types/utils';
 
-import { Profile } from 'modules/profiles/profiles.entity';
 import { RolesService } from 'modules/roles/roles.service';
 
 import { AddRoleUserDto } from './dto/add-role-user.dto';
@@ -23,12 +22,11 @@ export class UserService {
     private readonly sequelize: Sequelize,
     private readonly roleService: RolesService,
     @InjectModel(User) private userModel: typeof User,
-    @InjectModel(Profile) private profileModel: typeof Profile,
   ) {}
 
   create(createUserDto: CreateUserDto) {
     return this.userModel.create(createUserDto as any, {
-      include: [this.profileModel],
+      include: ['profile'],
       returning: ['id', 'email', 'phoneNumber', 'profile', 'username'],
     });
   }
@@ -42,7 +40,7 @@ export class UserService {
   }: ListUserParamsDto): Promise<PaginatedResponseDto<BaseUserDto>> {
     const include = [];
     if (withProfile === BooleanType.True) {
-      include.push(this.profileModel);
+      include.push('profile');
     }
 
     return this.userModel.findAllPaginated({
@@ -61,7 +59,7 @@ export class UserService {
 
   async findOne(id: string) {
     const user = await this.userModel.findByPk(id, {
-      include: [this.profileModel],
+      include: ['profile'],
       attributes: {
         exclude: ['password'],
       },
@@ -69,7 +67,7 @@ export class UserService {
 
     if (user === null) throw new UserNotFound();
 
-    return user.toJSON();
+    return user;
   }
 
   async update(
@@ -81,7 +79,7 @@ export class UserService {
         const transactionHost = { transaction: t };
 
         const user = await this.userModel.findByPk(id, {
-          include: [this.profileModel],
+          include: ['profile'],
           attributes: {
             exclude: ['password'],
           },
@@ -98,16 +96,14 @@ export class UserService {
         return user;
       });
 
-      return user.toJSON();
+      return user;
     } catch (error) {
       throw error;
     }
   }
 
   async remove(id: string) {
-    const user = await this.userModel.findByPk(id, {
-      include: [this.profileModel],
-    });
+    const user = await this.userModel.findByPk(id);
 
     if (user === null) throw new UserNotFound();
 
@@ -117,11 +113,12 @@ export class UserService {
   }
 
   async findProfile(userId: string) {
-    const profile = await this.profileModel.findByUserId({ userId });
-    console.log(profile.fullName, 'halo', userId);
-    if (profile === null) throw new UserNotFound();
+    const user = await this.userModel.findByPk(userId, {
+      include: ['profile'],
+    });
+    if (user === null) throw new UserNotFound();
 
-    return profile.toJSON();
+    return user.profile;
   }
 
   async checkUsernamePassword(

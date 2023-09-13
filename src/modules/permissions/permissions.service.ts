@@ -46,7 +46,7 @@ export class PermissionService {
   async findOne(id: number) {
     const permission = await this.permissionModel.findByPk(id);
     if (!permission) throw new PermissionNotFound();
-    return permission.toJSON();
+    return permission;
   }
 
   async update(id: number, updatePermissionDto: UpdatePermissionDto) {
@@ -55,7 +55,7 @@ export class PermissionService {
 
     await permission.update(updatePermissionDto);
 
-    return permission.toJSON();
+    return permission;
   }
 
   remove(id: number) {
