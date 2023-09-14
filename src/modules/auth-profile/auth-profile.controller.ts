@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { AuthUser } from 'shared/decorators/auth-user';
@@ -14,8 +14,8 @@ import { AuthUserDto } from 'shared/dto/auth-user.dto';
 import { JwtAuthGuard } from 'shared/guards/jwt-auth.guard';
 import { PoliciesGuard } from 'shared/guards/policies.guard';
 
-import { CaslAbilityFactory } from 'modules/casl/casl-ability.factory';
 import { BaseProfileDto } from 'modules/profiles/dto/base-profile.dto';
+import { UpdateProfileDto } from 'modules/profiles/dto/update-profile.dto';
 import { ProfilesService } from 'modules/profiles/profiles.service';
 
 @Controller('auth')
@@ -26,27 +26,34 @@ import { ProfilesService } from 'modules/profiles/profiles.service';
 @ApiValidationResponse()
 @ApiInternalServerErrorResponse()
 export class AuthProfileController {
-  constructor(
-    private readonly profileService: ProfilesService,
-    private readonly caslAbilityFactory: CaslAbilityFactory,
-  ) {}
+  constructor(private readonly profileService: ProfilesService) {}
 
   @Get('profile')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @CheckPolicies((ability) => ability.can('detail', 'Profile'))
   @ApiBearerAuth()
   @ApiOkResponse({ type: BaseProfileDto })
-  async profile(@AuthUser() authUser: AuthUserDto) {
-    const ability = await this.caslAbilityFactory.createForUser(
-      authUser.userId,
-    );
-
+  async getProfile(@AuthUser() authUser: AuthUserDto) {
     const profile = await this.profileService.findProfileByUserId(
       authUser.userId,
     );
-
-    console.log(ability.can('manage', profile));
-
     return profile;
+  }
+
+  @Patch('profile')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability) => ability.can('update', 'Profile'))
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: BaseProfileDto })
+  async updateProfile(
+    @AuthUser() authUser: AuthUserDto,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ) {
+    const profile = await this.profileService.updateProfileByUserId(
+      authUser.userId,
+      updateProfileDto,
+      authUser.userId,
+    );
+    return profile.toJSON();
   }
 }
