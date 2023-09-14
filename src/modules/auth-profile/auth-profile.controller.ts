@@ -37,7 +37,7 @@ export class AuthProfileController {
     const profile = await this.profileService.findProfileByUserId(
       authUser.userId,
     );
-    return profile;
+    return profile.toJSON();
   }
 
   @Patch('profile')
