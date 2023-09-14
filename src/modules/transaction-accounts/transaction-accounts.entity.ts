@@ -78,7 +78,7 @@ export class TransactionAccount extends BaseModel<
   currentBallance: number;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
   userId: string;
 
   @BelongsTo(() => User, {
@@ -87,7 +87,7 @@ export class TransactionAccount extends BaseModel<
   user: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   createdById: string;
 
   @BelongsTo(() => User, {
@@ -96,7 +96,7 @@ export class TransactionAccount extends BaseModel<
   createdBy: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   updatedById: string;
 
   @BelongsTo(() => User, {
@@ -105,7 +105,7 @@ export class TransactionAccount extends BaseModel<
   updatedBy: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   deletedById: string;
 
   @BelongsTo(() => User, {

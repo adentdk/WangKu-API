@@ -27,6 +27,7 @@ export class RolePermission extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    onDelete: 'CASCADE',
   })
   permissionId!: number;
 
@@ -38,6 +39,7 @@ export class RolePermission extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    onDelete: 'CASCADE',
   })
   roleId!: number;
 }

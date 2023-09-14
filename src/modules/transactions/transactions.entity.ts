@@ -89,7 +89,7 @@ export class Transaction extends BaseModel<
   withUserJSON: SimpleUser[];
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.STRING(36), allowNull: false })
+  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
   userId: string;
 
   @BelongsTo(() => User, {
@@ -98,7 +98,7 @@ export class Transaction extends BaseModel<
   user: User;
 
   @ForeignKey(() => TransactionCategory)
-  @Column({ type: DataType.STRING(36), allowNull: false })
+  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
   transactionCategoryId: string;
 
   @BelongsTo(() => TransactionCategory, {
@@ -107,7 +107,7 @@ export class Transaction extends BaseModel<
   transactionCategory: TransactionCategory;
 
   @ForeignKey(() => TransactionAccount)
-  @Column({ type: DataType.STRING(36), allowNull: true })
+  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'SET NULL' })
   transactionAccountId: string;
 
   @BelongsTo(() => TransactionAccount, {
@@ -116,7 +116,7 @@ export class Transaction extends BaseModel<
   transactionAccount: TransactionAccount;
 
   @ForeignKey(() => TransactionAccount)
-  @Column({ type: DataType.STRING(36), allowNull: true })
+  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'SET NULL' })
   originTransactionAccountId: string;
 
   @BelongsTo(() => TransactionAccount, {
@@ -125,7 +125,7 @@ export class Transaction extends BaseModel<
   originTransactionAccount: TransactionAccount;
 
   @ForeignKey(() => TransactionAccount)
-  @Column({ type: DataType.STRING(36), allowNull: true })
+  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'SET NULL' })
   destinationTransactionAccountId: string;
 
   @BelongsTo(() => TransactionAccount, {
@@ -134,14 +134,14 @@ export class Transaction extends BaseModel<
   destinationTransactionAccount: TransactionAccount;
 
   @ForeignKey(() => Event)
-  @Column({ type: DataType.STRING(36), allowNull: true })
+  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'SET NULL' })
   eventId: string;
 
   @BelongsTo(() => Event, { foreignKey: 'eventId' })
   event: Event;
 
   @ForeignKey(() => TransactionDebt)
-  @Column({ type: DataType.STRING(36), allowNull: true })
+  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'SET NULL' })
   transactionDebtId: string;
 
   @BelongsTo(() => TransactionDebt, {
@@ -150,7 +150,7 @@ export class Transaction extends BaseModel<
   transactionDebt: TransactionDebt;
 
   @ForeignKey(() => TransactionCredit)
-  @Column({ type: DataType.STRING(36), allowNull: true })
+  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'SET NULL' })
   transactionCreditId: string;
 
   @BelongsTo(() => TransactionCredit, { foreignKey: 'transactionCreditId' })

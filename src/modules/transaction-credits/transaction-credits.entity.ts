@@ -65,7 +65,7 @@ export class TransactionCredit extends BaseModel<
   lenderJSON: Lender;
 
   @ForeignKey(() => TransactionCategory)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
   transactionCategoryId: string;
 
   @BelongsTo(() => TransactionCategory, {
@@ -74,7 +74,7 @@ export class TransactionCredit extends BaseModel<
   transactionCategory: TransactionCategory;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
   lenderId: string;
 
   @BelongsTo(() => User, {
@@ -83,7 +83,7 @@ export class TransactionCredit extends BaseModel<
   lender: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
   userId: string;
 
   @BelongsTo(() => User, {
@@ -92,7 +92,7 @@ export class TransactionCredit extends BaseModel<
   user: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   createdById: string;
 
   @BelongsTo(() => User, {
@@ -101,7 +101,7 @@ export class TransactionCredit extends BaseModel<
   createdBy: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   updatedById: string;
 
   @BelongsTo(() => User, {
@@ -110,7 +110,7 @@ export class TransactionCredit extends BaseModel<
   updatedBy: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   deletedById: string;
 
   @BelongsTo(() => User, {

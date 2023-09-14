@@ -27,6 +27,7 @@ export class RoleUser extends Model {
   @Column({
     type: DataType.STRING(36),
     allowNull: false,
+    onDelete: 'CASCADE',
   })
   userId!: number;
 
@@ -38,6 +39,7 @@ export class RoleUser extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    onDelete: 'CASCADE',
   })
   roleId!: number;
 }

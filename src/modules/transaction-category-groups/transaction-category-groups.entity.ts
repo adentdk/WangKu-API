@@ -82,7 +82,7 @@ export class TransactionCategoryGroup extends BaseModel<
   transactionCategories: TransactionCategory[];
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
   userId: string;
 
   @BelongsTo(() => User, {
@@ -91,7 +91,7 @@ export class TransactionCategoryGroup extends BaseModel<
   user: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   createdById: string;
 
   @BelongsTo(() => User, {
@@ -100,7 +100,7 @@ export class TransactionCategoryGroup extends BaseModel<
   createdBy: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   updatedById: string;
 
   @BelongsTo(() => User, {
@@ -109,7 +109,7 @@ export class TransactionCategoryGroup extends BaseModel<
   updatedBy: User;
 
   @ForeignKey(() => User)
-  @Column(DataType.STRING(36))
+  @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })
   deletedById: string;
 
   @BelongsTo(() => User, {
