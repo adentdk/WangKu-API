@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -50,6 +51,13 @@ import { UsersModule } from 'modules/users/users.module';
             drop: false,
           },
         },
+      }),
+      inject: [ConfigService],
+    }),
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        url: config.get<string>('queue.url'),
       }),
       inject: [ConfigService],
     }),

@@ -23,4 +23,7 @@ export default () => ({
     ttl: process.env.REDIS_CACHE_TTL,
     url: process.env.REDIS_CACHE_URL,
   },
+  queue: {
+    url: process.env.REDIS_QUEUE_URL,
+  },
 });
