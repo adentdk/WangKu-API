@@ -15,6 +15,8 @@ import { AuthProfileModule } from 'modules/auth-profile/auth-profile.module';
 import { CaslModule } from 'modules/casl/casl.module';
 import { CurrenciesModule } from 'modules/currencies/currencies.module';
 import { EventsModule } from 'modules/events/events.module';
+import { IconBundlesModule } from 'modules/icon-bundles/icon-bundles.module';
+import { IconsModule } from 'modules/icons/icons.module';
 import { PermissionsModule } from 'modules/permissions/permissions.module';
 import { ProfilesModule } from 'modules/profiles/profiles.module';
 import { RolePermissionModule } from 'modules/role-permission/role-permission.module';
@@ -88,6 +90,8 @@ import { UsersModule } from 'modules/users/users.module';
     TransactionAccountsModule,
     EventsModule,
     CurrenciesModule,
+    IconsModule,
+    IconBundlesModule,
   ],
   controllers: [],
   providers: [JwtAuthStrategy, BasicAuthStrategy],

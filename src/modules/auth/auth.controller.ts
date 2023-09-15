@@ -20,6 +20,7 @@ import { BasicAuthGuard } from 'shared/guards/basic-auth.guard';
 
 import { UserService } from 'modules/users/users.service';
 
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { TokensDto } from './dto/tokens.dto';
 import { AuthService } from './auth.service';
@@ -47,6 +48,23 @@ export class AuthController {
       body.username,
       body.password,
     );
+    if (!user) throw new BadRequest();
+
+    return this.authService.getTokens(user.getAuthObject());
+  }
+
+  @Post('refresh-token')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(BasicAuthGuard)
+  @ApiBasicAuth()
+  @ApiOkResponse({ type: TokensDto })
+  async refreshToken(@Body() body: RefreshTokenDto) {
+    const { sub: userId } = await this.authService.verifyRefreshToken(
+      body.refreshToken,
+    );
+
+    const user = await this.userService.findOne(userId);
+
     if (!user) throw new BadRequest();
 
     return this.authService.getTokens(user.getAuthObject());

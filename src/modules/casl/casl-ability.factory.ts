@@ -4,9 +4,11 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Cache } from 'cache-manager';
 import Handlebars from 'handlebars';
 
+import { PermissionItem } from 'shared/types/general';
+
 import { User } from 'modules/users/user.entity';
 
-import { defineAbilitiesForUser, PermissionItem } from './ability';
+import { defineAbilitiesForUser } from './ability';
 
 const USER_PERMISSION_KEY = 'user_permission';
 
@@ -27,6 +29,13 @@ export class CaslAbilityFactory {
     if (permissionCache !== null)
       return defineAbilitiesForUser(permissionCache);
 
+    const permissions = await this.findPermissionByUserId(userId);
+    await this.cacheManager.set(cacheKey, permissions);
+
+    return defineAbilitiesForUser(permissions);
+  }
+
+  async findPermissionByUserId(userId: string) {
     const user = await this.userModel.findByPk(userId, {
       attributes: ['id'],
       include: [
@@ -67,8 +76,6 @@ export class CaslAbilityFactory {
       });
     });
 
-    await this.cacheManager.set(cacheKey, permissions);
-
-    return defineAbilitiesForUser(permissions);
+    return permissions;
   }
 }
