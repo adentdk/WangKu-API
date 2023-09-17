@@ -31,6 +31,7 @@ import { TransactionDebtsModule } from 'modules/transaction-debts/transaction-de
 import { TransactionsModule } from 'modules/transactions/transactions.module';
 import { TranslationsModule } from 'modules/translations/translations.module';
 import { UsersModule } from 'modules/users/users.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
