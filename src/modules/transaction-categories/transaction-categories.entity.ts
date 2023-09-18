@@ -87,7 +87,7 @@ export class TransactionCategory extends BaseModel<
   transactionCategoryGroup: TransactionCategoryGroup;
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.STRING(36), allowNull: false, onDelete: 'CASCADE' })
+  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'CASCADE' })
   userId: string;
 
   @BelongsTo(() => User, {
