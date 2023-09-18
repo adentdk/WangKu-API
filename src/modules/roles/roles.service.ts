@@ -42,7 +42,7 @@ export class RolesService {
           transactionHost,
         );
 
-        if (permissionIds.length) {
+        if (permissionIds) {
           await role.$set('permissions', permissionIds, transactionHost);
         }
 

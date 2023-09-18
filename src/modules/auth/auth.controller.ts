@@ -53,6 +53,15 @@ export class AuthController {
     return this.authService.getTokens(user.getAuthObject());
   }
 
+  @Post('signup')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(BasicAuthGuard)
+  @ApiBasicAuth()
+  @ApiOkResponse()
+  async signUp(@Body() body: any) {
+    return this.userService.create(body);
+  }
+
   @Post('refresh-token')
   @HttpCode(HttpStatus.OK)
   @UseGuards(BasicAuthGuard)

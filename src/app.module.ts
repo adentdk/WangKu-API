@@ -13,6 +13,7 @@ import { JwtAuthStrategy } from 'shared/stategies/jwt-auth.strategy';
 
 import { AuthModule } from 'modules/auth/auth.module';
 import { AuthProfileModule } from 'modules/auth-profile/auth-profile.module';
+import { AuthTransactionsModule } from 'modules/auth-transactions/auth-transactions.module';
 import { CaslModule } from 'modules/casl/casl.module';
 import { CurrenciesModule } from 'modules/currencies/currencies.module';
 import { EventsModule } from 'modules/events/events.module';
@@ -31,6 +32,11 @@ import { TransactionDebtsModule } from 'modules/transaction-debts/transaction-de
 import { TransactionsModule } from 'modules/transactions/transactions.module';
 import { TranslationsModule } from 'modules/translations/translations.module';
 import { UsersModule } from 'modules/users/users.module';
+import { AuthTransactionAccountsModule } from './modules/auth-transaction-accounts/auth-transaction-accounts.module';
+import { AuthTransactionCreditsModule } from './modules/auth-transaction-credits/auth-transaction-credits.module';
+import { AuthTransactionDebtsModule } from './modules/auth-transaction-debts/auth-transaction-debts.module';
+import { AuthTransactionCategoriesModule } from './modules/auth-transaction-categories/auth-transaction-categories.module';
+import { AuthSyncModule } from './modules/auth-sync/auth-sync.module';
 
 @Module({
   imports: [
@@ -101,6 +107,12 @@ import { UsersModule } from 'modules/users/users.module';
     CurrenciesModule,
     IconsModule,
     IconBundlesModule,
+    AuthTransactionsModule,
+    AuthTransactionAccountsModule,
+    AuthTransactionCreditsModule,
+    AuthTransactionDebtsModule,
+    AuthTransactionCategoriesModule,
+    AuthSyncModule,
   ],
   controllers: [],
   providers: [JwtAuthStrategy, BasicAuthStrategy],
