@@ -32,11 +32,13 @@ import { TransactionDebtsModule } from 'modules/transaction-debts/transaction-de
 import { TransactionsModule } from 'modules/transactions/transactions.module';
 import { TranslationsModule } from 'modules/translations/translations.module';
 import { UsersModule } from 'modules/users/users.module';
+
+import { AuthSyncModule } from './modules/auth-sync/auth-sync.module';
 import { AuthTransactionAccountsModule } from './modules/auth-transaction-accounts/auth-transaction-accounts.module';
+import { AuthTransactionCategoriesModule } from './modules/auth-transaction-categories/auth-transaction-categories.module';
 import { AuthTransactionCreditsModule } from './modules/auth-transaction-credits/auth-transaction-credits.module';
 import { AuthTransactionDebtsModule } from './modules/auth-transaction-debts/auth-transaction-debts.module';
-import { AuthTransactionCategoriesModule } from './modules/auth-transaction-categories/auth-transaction-categories.module';
-import { AuthSyncModule } from './modules/auth-sync/auth-sync.module';
+import { MenusModule } from './modules/menus/menus.module';
 
 @Module({
   imports: [
@@ -113,6 +115,7 @@ import { AuthSyncModule } from './modules/auth-sync/auth-sync.module';
     AuthTransactionDebtsModule,
     AuthTransactionCategoriesModule,
     AuthSyncModule,
+    MenusModule,
   ],
   controllers: [],
   providers: [JwtAuthStrategy, BasicAuthStrategy],
