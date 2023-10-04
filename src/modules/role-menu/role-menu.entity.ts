@@ -50,4 +50,10 @@ export class RoleMenu extends Model {
     allowNull: true,
   })
   detail!: ObjectType;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+  })
+  order: number | null;
 }

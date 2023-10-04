@@ -27,7 +27,7 @@ import { User } from 'modules/users/user.entity';
 })
 export class Menu extends BaseModel<
   InferAttributes<Menu>,
-  InferCreationAttributes<Menu>
+  InferCreationAttributes<Menu, { omit: 'roleMenu' | 'id' }>
 > {
   @PrimaryKey
   @AutoIncrement
@@ -77,12 +77,17 @@ export class Menu extends BaseModel<
   parent: Menu;
 
   @HasMany(() => Menu, 'parentId')
-  childrens: Menu[];
+  children: Menu[];
 
   @BelongsToMany(() => Role, {
     through: { model: () => RoleMenu },
   })
   roles: Menu[];
+
+  @Column(DataType.VIRTUAL)
+  get roleMenu() {
+    return this.getDataValue('RoleMenu');
+  }
 
   @ForeignKey(() => User)
   @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Attributes, FindOptions } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
 
 import { PaginatedResponseDto } from 'shared/dto/paginated-response.dto';
@@ -71,12 +72,16 @@ export class UserService {
     });
   }
 
-  async findOne(id: string) {
+  async findOne(
+    id: string,
+    options?: Omit<FindOptions<Attributes<User>>, 'where'>,
+  ) {
     const user = await this.userModel.findByPk(id, {
       include: ['profile'],
       attributes: {
         exclude: ['password'],
       },
+      ...options,
     });
 
     if (user === null) throw new UserNotFound();

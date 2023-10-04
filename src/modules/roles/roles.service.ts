@@ -129,4 +129,10 @@ export class RolesService {
   remove(id: number) {
     return `This action removes a #${id} role`;
   }
+
+  async findAllMenus(roleId: number) {
+    const role = await this.findOne(roleId);
+
+    return role.$get('menus');
+  }
 }
