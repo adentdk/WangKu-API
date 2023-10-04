@@ -2,6 +2,7 @@ import { InferAttributes, InferCreationAttributes } from 'sequelize';
 import {
   AutoIncrement,
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -13,6 +14,8 @@ import {
 import { BaseModel } from 'shared/base-model';
 import { IconType } from 'shared/types/general';
 
+import { RoleMenu } from 'modules/role-menu/role-menu.entity';
+import { Role } from 'modules/roles/roles.entity';
 import { User } from 'modules/users/user.entity';
 
 @Table({
@@ -76,14 +79,10 @@ export class Menu extends BaseModel<
   @HasMany(() => Menu, 'parentId')
   childrens: Menu[];
 
-  @ForeignKey(() => User)
-  @Column({ type: DataType.STRING(36), allowNull: true, onDelete: 'CASCADE' })
-  userId: string;
-
-  @BelongsTo(() => User, {
-    foreignKey: 'userId',
+  @BelongsToMany(() => Role, {
+    through: { model: () => RoleMenu },
   })
-  user: User;
+  roles: Menu[];
 
   @ForeignKey(() => User)
   @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })

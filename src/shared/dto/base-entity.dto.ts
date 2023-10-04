@@ -1,9 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class BaseEntityDto {
-  @ApiProperty()
-  id: string;
-
+export class BaseDto {
   @ApiProperty()
   createdAt: string;
 
@@ -21,4 +18,14 @@ export class BaseEntityDto {
 
   @ApiProperty()
   deletedById: string | null;
+}
+
+export class BaseEntityDto extends BaseDto {
+  @ApiProperty()
+  id: string;
+}
+
+export class BaseEntityNumberDto extends BaseDto {
+  @ApiProperty()
+  id: number;
 }

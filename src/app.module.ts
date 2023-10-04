@@ -39,6 +39,7 @@ import { AuthTransactionCategoriesModule } from './modules/auth-transaction-cate
 import { AuthTransactionCreditsModule } from './modules/auth-transaction-credits/auth-transaction-credits.module';
 import { AuthTransactionDebtsModule } from './modules/auth-transaction-debts/auth-transaction-debts.module';
 import { MenusModule } from './modules/menus/menus.module';
+import { RoleMenuModule } from './modules/role-menu/role-menu.module';
 
 @Module({
   imports: [
@@ -116,6 +117,7 @@ import { MenusModule } from './modules/menus/menus.module';
     AuthTransactionCategoriesModule,
     AuthSyncModule,
     MenusModule,
+    RoleMenuModule,
   ],
   controllers: [],
   providers: [JwtAuthStrategy, BasicAuthStrategy],

@@ -13,7 +13,9 @@ import {
 import { BaseModel } from 'shared/base-model';
 import { ErrorCodes } from 'shared/types/error-code';
 
+import { Menu } from 'modules/menus/menus.entity';
 import { Permission } from 'modules/permissions/permissions.entity';
+import { RoleMenu } from 'modules/role-menu/role-menu.entity';
 import { RolePermission } from 'modules/role-permission/role-permission.entity';
 import { User } from 'modules/users/user.entity';
 
@@ -57,6 +59,11 @@ export class Role extends BaseModel<
     through: { model: () => RolePermission },
   })
   permissions: Permission[];
+
+  @BelongsToMany(() => Menu, {
+    through: { model: () => RoleMenu },
+  })
+  menus: Menu[];
 
   @ForeignKey(() => User)
   @Column({ type: DataType.STRING(36), onDelete: 'SET NULL' })

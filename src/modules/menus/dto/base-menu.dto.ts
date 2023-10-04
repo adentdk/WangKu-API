@@ -1,59 +1,34 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 
-import { BaseEntityDto } from 'shared/dto/base-entity.dto';
+import { BaseEntityNumberDto } from 'shared/dto/base-entity.dto';
 import { IconType } from 'shared/types/general';
-import { TransactionType } from 'shared/types/transaction';
 
-export class BaseMenu extends BaseEntityDto {
-  @ApiProperty()
+export class BaseMenu extends BaseEntityNumberDto {
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  @MaxLength(64)
+  identifier: string;
+
+  @ApiProperty({ required: true })
   @IsNotEmpty()
   @MaxLength(32)
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
-  @MaxLength(255)
-  description: string;
+  href?: string | null;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(TransactionType)
-  type: TransactionType;
-
-  @ApiProperty()
-  @IsOptional()
-  @IsString()
-  icon: string;
-
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsEnum(IconType)
-  iconType: IconType;
+  iconType?: IconType | null;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
-  @IsString()
-  userId: string;
+  icon?: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsOptional()
-  @IsString()
-  MenuGroupId: string;
-
-  @ApiProperty()
-  @IsOptional()
-  @IsString()
-  tNameKey: string;
-
-  @ApiProperty()
-  @IsOptional()
-  @IsString()
-  tDescKey: string;
+  parentId?: number;
 }
