@@ -66,6 +66,12 @@ export class Menu extends BaseModel<
   })
   icon: string | null;
 
+  @Column({
+    type: DataType.SMALLINT,
+    allowNull: true,
+  })
+  order: number | null;
+
   @ForeignKey(() => Menu)
   @Column({ type: DataType.INTEGER, allowNull: true, onDelete: 'CASCADE' })
   parentId: number;

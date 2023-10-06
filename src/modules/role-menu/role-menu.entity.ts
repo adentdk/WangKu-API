@@ -52,7 +52,7 @@ export class RoleMenu extends Model {
   detail!: ObjectType;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.SMALLINT,
     allowNull: true,
   })
   order: number | null;

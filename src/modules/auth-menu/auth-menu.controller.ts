@@ -39,7 +39,14 @@ export class AuthMenuController {
           include: [
             {
               association: 'menus',
-              attributes: ['identifier', 'name', 'href', 'iconType', 'icon'],
+              attributes: [
+                'identifier',
+                'name',
+                'href',
+                'iconType',
+                'icon',
+                'order',
+              ],
               through: {
                 attributes: ['order'],
               },
@@ -52,6 +59,7 @@ export class AuthMenuController {
                     'href',
                     'iconType',
                     'icon',
+                    'order',
                   ],
                 },
               ],
@@ -64,7 +72,18 @@ export class AuthMenuController {
     return user.roles
       .flatMap((role) => role.menus)
       .sort((a, b) => {
-        return (b.roleMenu.order || 0) - (a.roleMenu.order || 0);
-      });
+        return (
+          (b.roleMenu.order || b.order || 0) -
+          (a.roleMenu.order || a.order || 0)
+        );
+      })
+      .map((menu) => ({
+        ...menu.toJSON(),
+        children: menu.children
+          .sort((a, b) => {
+            return (b.order || 0) - (a.order || 0);
+          })
+          .map((child) => child.toJSON()),
+      }));
   }
 }

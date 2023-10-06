@@ -44,6 +44,7 @@ export class TransactionCategoriesService {
       orderBy,
       options: {
         where: whereOptions,
+        include: ['transactionCategoryGroup'],
       },
     });
   }
