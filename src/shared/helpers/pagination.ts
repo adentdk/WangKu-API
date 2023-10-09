@@ -7,8 +7,8 @@ export class PaginationHelper {
     page: number,
     pageSize: number,
   ): { limit: number; offset: number } {
-    const limit = pageSize;
-    const offset = (page - 1) * pageSize;
+    const limit = +pageSize || null;
+    const offset = (+page - 1) * +pageSize;
     return { limit, offset };
   }
 

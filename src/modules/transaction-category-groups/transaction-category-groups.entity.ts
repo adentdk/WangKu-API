@@ -12,7 +12,6 @@ import {
 
 import { BaseModel } from 'shared/base-model';
 import { IconType } from 'shared/types/general';
-import { TransactionType } from 'shared/types/transaction';
 
 import { TransactionCategory } from 'modules/transaction-categories/transaction-categories.entity';
 import { User } from 'modules/users/user.entity';
@@ -47,12 +46,6 @@ export class TransactionCategoryGroup extends BaseModel<
     allowNull: true,
   })
   description: string;
-
-  @Column({
-    type: DataType.SMALLINT,
-    allowNull: false,
-  })
-  type: TransactionType;
 
   @Column({
     type: DataType.STRING,

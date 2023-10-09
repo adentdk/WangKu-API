@@ -31,12 +31,17 @@ export class TransactionCategoriesService {
     pageSize,
     order = 'desc',
     orderBy = 'createdAt',
+    type,
   }: ListTransactionCategoryParams) {
     const whereOptions: WhereOptions<Attributes<TransactionCategory>> = {};
-    if (search)
+    if (search) {
       whereOptions.name = {
         [Op.iLike]: `%${search}%`,
       };
+    }
+
+    if (type) whereOptions.type = type;
+
     return this.transactionCategoryModel.findAllPaginated({
       page,
       pageSize,

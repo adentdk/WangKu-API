@@ -9,7 +9,6 @@ import {
 
 import { BaseEntityDto } from 'shared/dto/base-entity.dto';
 import { IconType } from 'shared/types/general';
-import { TransactionType } from 'shared/types/transaction';
 
 export class BaseTransactionCategoryGroup extends BaseEntityDto {
   @ApiProperty()
@@ -21,11 +20,6 @@ export class BaseTransactionCategoryGroup extends BaseEntityDto {
   @IsOptional()
   @MaxLength(255)
   description: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsEnum(TransactionType)
-  type: TransactionType;
 
   @ApiProperty()
   @IsOptional()

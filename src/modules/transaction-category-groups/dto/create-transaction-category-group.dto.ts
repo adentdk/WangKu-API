@@ -4,5 +4,5 @@ import { BaseTransactionCategoryGroup } from './base-transaction-category-group.
 
 export class CreateTransactionCategoryGroupDto extends PickType(
   BaseTransactionCategoryGroup,
-  ['name', 'type', 'description', 'icon', 'iconType', 'userId'],
+  ['name', 'description', 'icon', 'iconType', 'userId'],
 ) {}
