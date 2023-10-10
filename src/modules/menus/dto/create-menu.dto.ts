@@ -9,4 +9,5 @@ export class CreateMenuDto extends PickType(BaseMenu, [
   'iconType',
   'identifier',
   'parentId',
+  'children',
 ]) {}

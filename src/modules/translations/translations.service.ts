@@ -46,7 +46,7 @@ export class TranslationsService {
       },
       include: [
         {
-          model: this.languageModel,
+          association: 'language',
           attributes: [],
           required: true,
           where: {

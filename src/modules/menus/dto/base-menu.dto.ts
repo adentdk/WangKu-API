@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  MaxLength,
+} from 'class-validator';
 
 import { BaseEntityNumberDto } from 'shared/dto/base-entity.dto';
 import { IconType } from 'shared/types/general';
@@ -30,5 +37,11 @@ export class BaseMenu extends BaseEntityNumberDto {
 
   @ApiProperty({ required: false })
   @IsOptional()
-  parentId?: number;
+  parentId?: number | null;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Type(() => BaseMenu)
+  @IsArray()
+  children?: BaseMenu[];
 }

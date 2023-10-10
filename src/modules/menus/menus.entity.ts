@@ -27,7 +27,7 @@ import { User } from 'modules/users/user.entity';
 })
 export class Menu extends BaseModel<
   InferAttributes<Menu>,
-  InferCreationAttributes<Menu, { omit: 'roleMenu' | 'id' }>
+  InferCreationAttributes<Menu, { omit: 'roleMenu' }>
 > {
   @PrimaryKey
   @AutoIncrement
